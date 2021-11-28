@@ -17,7 +17,7 @@ router.get("/nfl-week/:week", async (req, res) => {
     res.json(getPredictions.rows);
   } catch (error) {
     console.error(error.message);
-    res.send(`No predictionsn for NFL week "${week}"`);
+    res.send(`No predictions for NFL week "${week}"`);
   }
 });
 
