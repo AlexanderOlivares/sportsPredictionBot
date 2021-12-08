@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import Button from "@mui/material/Button";
@@ -11,6 +12,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SportsFootballIcon from "@mui/icons-material/SportsFootball";
 import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
 import HomeIcon from "@mui/icons-material/Home";
+import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
 import { SvgIconProps } from "@mui/material";
 
 const sports: {
@@ -26,6 +28,11 @@ const sports: {
   {
     sport: "NBA",
     icon: SportsBasketballIcon,
+    text: "Coming Soon",
+  },
+  {
+    sport: "NHL",
+    icon: SportsHockeyIcon,
     text: "Coming Soon",
   },
 ];
@@ -70,13 +77,14 @@ export default function SwipeableTemporaryDrawer() {
       </List>
       <Divider />
       <List>
-        {/* {["NFL", "NBA", "NHL"].map((text, index) => ( */}
         {sports.map(sport => (
           <ListItem button key={sport.sport}>
             <ListItemIcon>
               <sport.icon />
             </ListItemIcon>
-            <ListItemText primary={sport.sport} />
+            <Link to={`${sport.sport.toLowerCase()}`}>
+              <ListItemText primary={sport.sport} />
+            </Link>
           </ListItem>
         ))}
       </List>
