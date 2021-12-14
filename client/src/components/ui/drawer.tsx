@@ -23,7 +23,7 @@ const sports: {
   {
     sport: "NFL",
     icon: SportsFootballIcon,
-    text: "Coming Soon",
+    text: "",
   },
   {
     sport: "NBA",
@@ -68,10 +68,12 @@ export default function SwipeableTemporaryDrawer() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {["Home"].map((text, index) => (
+        {["Home"].map(text => (
           <ListItem button key={text}>
             <ListItemIcon>{<HomeIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
+            <Link to={"/"}>
+              <ListItemText primary={text} />
+            </Link>
           </ListItem>
         ))}
       </List>
@@ -83,7 +85,9 @@ export default function SwipeableTemporaryDrawer() {
               <sport.icon />
             </ListItemIcon>
             <Link to={`${sport.sport.toLowerCase()}`}>
-              <ListItemText primary={sport.sport} />
+              <ListItemText
+                primary={`${sport.sport} ${sport.text && sport.text}`}
+              />
             </Link>
           </ListItem>
         ))}

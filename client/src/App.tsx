@@ -12,8 +12,8 @@ function App() {
         <Drawer />
         <Routes>
           <Route path="/nfl" element={<Nfl />} />
-          <Route path="/nhl" element={<Nfl />} />
-          <Route path="/nba" element={<Nfl />} />
+          {/* <Route path="/nhl" element={<Nfl />} />
+          <Route path="/nba" element={<Nfl />} /> */}
         </Routes>
       </Router>
       <Home />
