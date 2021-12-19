@@ -17,39 +17,51 @@ const bull = (
 );
 
 interface CardProps {
-  away_predicted: string;
-  away_team: string;
-  favored_team: string;
-  home_predicted: string;
-  home_team: string;
-  pick: string;
-  vegas_line: string;
+  game: {
+    away_predicted: string;
+    away_team: string;
+    favored_team: string;
+    home_predicted: string;
+    home_team: string;
+    pick: string;
+    vegas_line: string;
+  };
 }
 
-const BasicCard: React.FC<CardProps> = props => {
+const NflCard: React.FC<CardProps> = ({ game }) => {
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          Word of the Day
+          Away
         </Typography>
         <Typography variant="h5" component="div">
-          be{bull}nev{bull}o{bull}lent
+          {game.away_team}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          adjective
+          {game.away_predicted}
         </Typography>
         <Typography variant="body2">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
+          Line {game.favored_team} -{game.vegas_line}
+        </Typography>
+        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+          Home
+        </Typography>
+        <Typography variant="h5" component="div">
+          {game.home_team}
+        </Typography>
+        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+          {game.home_predicted}
+        </Typography>
+        <Typography variant="h5" component="div">
+          Pick: {game.pick}
         </Typography>
       </CardContent>
-      <CardActions>
+      {/* <CardActions>
         <Button size="small">Learn More</Button>
-      </CardActions>
+      </CardActions> */}
     </Card>
   );
 };
 
-export default BasicCard;
+export default NflCard;

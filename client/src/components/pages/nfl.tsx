@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
-import BasicCard from "../ui/card";
+import NflCard from "../ui/cards/NflCard";
+import Spinner from "../ui/Spinner";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import IconButton from "@mui/material/IconButton";
+import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 
 interface IYearAndWeek {
   year: string;
@@ -24,13 +27,12 @@ interface IPredictionData {
 const Nfl: React.FC = () => {
   const years = ["2021", "2022", "2023"];
   const weeks = ["9", "10", "11", "12"];
+
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [selectOptions, setSelectOptions] = useState<IYearAndWeek>({
     year: years[0],
     week: weeks[weeks.length - 1],
   });
-  const [currentWeekDisplayed, setCurrentWeekDisplayed] = useState<string>(
-    selectOptions.week
-  );
 
   const [predictionData, setPredictionData] = useState<IPredictionData[]>();
 
@@ -50,6 +52,7 @@ const Nfl: React.FC = () => {
 
   const getNflScores = async () => {
     try {
+      setIsLoading(true);
       let response = await fetch(
         `http://localhost:5000/api/nfl-week/${selectOptions.week}`,
         {
@@ -58,6 +61,7 @@ const Nfl: React.FC = () => {
       );
       const predictions = await response.json();
       setPredictionData(predictions);
+      setIsLoading(false);
     } catch (error) {
       console.error(error);
     }
@@ -66,6 +70,10 @@ const Nfl: React.FC = () => {
   useEffect(() => {
     getNflScores();
   }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo(0, 0);
+  };
 
   return (
     <>
@@ -112,8 +120,16 @@ const Nfl: React.FC = () => {
           Go
         </Button>
       </Box>
-      {/* prediction logic for cards goes here */}
-      {/* <Box>{predictionData && predictionData.map(e => e.home_team)}</Box> */}
+      <Box>
+        {isLoading && <Spinner />}
+        {predictionData &&
+          predictionData.map(game => {
+            return <NflCard game={game} />;
+          })}
+      </Box>
+      <IconButton aria-label="scroll to top" onClick={scrollToTop}>
+        <ArrowCircleUpIcon />
+      </IconButton>
     </>
   );
 };

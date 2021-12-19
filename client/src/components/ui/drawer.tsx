@@ -13,6 +13,7 @@ import SportsFootballIcon from "@mui/icons-material/SportsFootball";
 import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
 import HomeIcon from "@mui/icons-material/Home";
 import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
+// import { Drawer, SvgIconProps } from "@mui/material";
 import { SvgIconProps } from "@mui/material";
 
 const sports: {
@@ -39,7 +40,7 @@ const sports: {
 
 type Anchor = "top" | "left";
 
-export default function SwipeableTemporaryDrawer() {
+const Drawer: React.FC = () => {
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -116,4 +117,5 @@ export default function SwipeableTemporaryDrawer() {
       ))}
     </div>
   );
-}
+};
+export default Drawer;

@@ -1,9 +1,9 @@
 import React from "react";
 import "./App.css";
-import Home from "./components/pages/home";
+import Home from "./components/pages/Home";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
-import Drawer from "./components/ui/drawer";
-import Nfl from "./components/pages/nfl";
+import Drawer from "./components/ui/Drawer";
+import Nfl from "./components/pages/Nfl";
 
 function App() {
   return (
