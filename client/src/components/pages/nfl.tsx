@@ -41,7 +41,6 @@ const Nfl: React.FC = () => {
 
   const handleSelectChange = (event: SelectChangeEvent) => {
     const { name, value }: { name: string; value: string } = event.target;
-    console.log(event.target);
     setSelectOptions(prev => {
       return {
         ...prev,
