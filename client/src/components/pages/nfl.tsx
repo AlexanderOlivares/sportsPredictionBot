@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
+import Typography from "@mui/material/Typography";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import IconButton from "@mui/material/IconButton";
@@ -35,9 +36,6 @@ const Nfl: React.FC = () => {
   });
 
   const [predictionData, setPredictionData] = useState<IPredictionData[]>();
-
-  console.log(selectOptions);
-  console.log(predictionData);
 
   const handleSelectChange = (event: SelectChangeEvent) => {
     const { name, value }: { name: string; value: string } = event.target;
@@ -119,11 +117,14 @@ const Nfl: React.FC = () => {
           Go
         </Button>
       </Box>
+      <Box p={3}>
+        <Typography variant="h5">NFL {selectOptions.week}</Typography>
+      </Box>
       <Box>
         {isLoading && <Spinner />}
         {predictionData &&
-          predictionData.map(game => {
-            return <NflCard game={game} />;
+          predictionData.map((game, index) => {
+            return <NflCard key={index} game={game} />;
           })}
       </Box>
       <IconButton aria-label="scroll to top" onClick={scrollToTop}>
