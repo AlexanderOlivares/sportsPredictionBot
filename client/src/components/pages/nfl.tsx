@@ -10,6 +10,7 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import IconButton from "@mui/material/IconButton";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
+import Grid from "@mui/material/Grid";
 
 interface IYearAndWeek {
   year: string;
@@ -120,16 +121,30 @@ const Nfl: React.FC = () => {
       <Box p={3}>
         <Typography variant="h5">NFL {selectOptions.week}</Typography>
       </Box>
+      {isLoading && <Spinner />}
       <Box>
-        {isLoading && <Spinner />}
-        {predictionData &&
-          predictionData.map((game, index) => {
-            return <NflCard key={index} game={game} />;
-          })}
+        <Grid
+          container
+          spacing={4}
+          justifyContent="center"
+          alignItems="center"
+          direction="row"
+        >
+          {predictionData &&
+            predictionData.map((game, index) => {
+              return (
+                <Grid item>
+                  <NflCard key={index} game={game} />
+                </Grid>
+              );
+            })}
+        </Grid>
       </Box>
-      <IconButton aria-label="scroll to top" onClick={scrollToTop}>
-        <ArrowCircleUpIcon />
-      </IconButton>
+      {!isLoading && (
+        <IconButton aria-label="scroll to top" onClick={scrollToTop}>
+          <ArrowCircleUpIcon />
+        </IconButton>
+      )}
     </>
   );
 };

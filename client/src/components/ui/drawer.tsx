@@ -8,11 +8,11 @@ import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import MenuIcon from "@mui/icons-material/Menu";
-import SportsFootballIcon from "@mui/icons-material/SportsFootball";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import HomeIcon from "@mui/icons-material/Home";
-import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
+import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import SportsFootballOutlinedIcon from "@mui/icons-material/SportsFootballOutlined";
+import SportsBasketballOutlinedIcon from "@mui/icons-material/SportsBasketballOutlined";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import SportsHockeyOutlinedIcon from "@mui/icons-material/SportsHockeyOutlined";
 // import { Drawer, SvgIconProps } from "@mui/material";
 import { SvgIconProps } from "@mui/material";
 
@@ -23,17 +23,17 @@ const sports: {
 }[] = [
   {
     sport: "NFL",
-    icon: SportsFootballIcon,
+    icon: SportsFootballOutlinedIcon,
     text: "",
   },
   {
     sport: "NBA",
-    icon: SportsBasketballIcon,
+    icon: SportsBasketballOutlinedIcon,
     text: "Coming Soon",
   },
   {
     sport: "NHL",
-    icon: SportsHockeyIcon,
+    icon: SportsHockeyOutlinedIcon,
     text: "Coming Soon",
   },
 ];
@@ -71,7 +71,7 @@ const Drawer: React.FC = () => {
       <List>
         {["Home"].map(text => (
           <ListItem button key={text}>
-            <ListItemIcon>{<HomeIcon />}</ListItemIcon>
+            <ListItemIcon>{<HomeOutlinedIcon />}</ListItemIcon>
             <Link to={"/"}>
               <ListItemText primary={text} />
             </Link>
@@ -86,9 +86,7 @@ const Drawer: React.FC = () => {
               <sport.icon />
             </ListItemIcon>
             <Link to={`${sport.sport.toLowerCase()}`}>
-              <ListItemText
-                primary={`${sport.sport} ${sport.text && sport.text}`}
-              />
+              <ListItemText primary={`${sport.sport} ${sport.text && sport.text}`} />
             </Link>
           </ListItem>
         ))}
@@ -102,7 +100,7 @@ const Drawer: React.FC = () => {
         <React.Fragment key={anchor}>
           <Box m={3} position="static" style={{ float: "left" }}>
             <Button onClick={toggleDrawer(anchor, true)}>
-              {<MenuIcon fontSize="large" />}
+              {<MenuOutlinedIcon fontSize="large" />}
             </Button>
             <SwipeableDrawer
               anchor={anchor}

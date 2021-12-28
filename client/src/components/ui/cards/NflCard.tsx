@@ -27,7 +27,7 @@ const NflCard: React.FC<CardProps> = ({ game }) => {
 
   return (
     <>
-      <Card sx={{ minWidth: 275 }}>
+      <Card sx={{ minWidth: 345, maxWidth: 345 }}>
         <CardContent>
           <Box className="nfl-card">
             <Box className="card-box">
