@@ -16,6 +16,10 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import SportsHockeyOutlinedIcon from "@mui/icons-material/SportsHockeyOutlined";
 import { SvgIconProps, Typography } from "@mui/material";
 import UseMediaQuery from "../../helpers/UseMediaQuery";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
 
 const sports: {
   sport: string;
@@ -111,26 +115,19 @@ const Drawer: React.FC = () => {
   );
 
   return (
-    <Box sx={{ height: "50px" }}>
-      <Box component="span" sx={{ float: "left" }}>
-        <Button onClick={toggleDrawer(anchor, true)}>
-          {<MenuOutlinedIcon fontSize="large" />}
-        </Button>
-        <SwipeableDrawer
-          anchor={anchor}
-          open={state[anchor]}
-          onClose={toggleDrawer(anchor, false)}
-          onOpen={toggleDrawer(anchor, true)}
-        >
-          {list(anchor)}
-        </SwipeableDrawer>
-      </Box>
-      <Box m={2}>
-        <Typography variant="h4">
-          Prediction B<SmartToyOutlinedIcon />t
-        </Typography>
-      </Box>
-    </Box>
+    <>
+      <Button sx={{ color: "white" }} onClick={toggleDrawer(anchor, true)}>
+        {<MenuOutlinedIcon fontSize="large" />}
+      </Button>
+      <SwipeableDrawer
+        anchor={anchor}
+        open={state[anchor]}
+        onClose={toggleDrawer(anchor, false)}
+        onOpen={toggleDrawer(anchor, true)}
+      >
+        {list(anchor)}
+      </SwipeableDrawer>
+    </>
   );
 };
 export default Drawer;
