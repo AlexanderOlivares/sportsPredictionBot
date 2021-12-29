@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
@@ -8,13 +8,14 @@ import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import SmartToyOutlinedIcon from "@mui/icons-material/SmartToyOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import SportsFootballOutlinedIcon from "@mui/icons-material/SportsFootballOutlined";
 import SportsBasketballOutlinedIcon from "@mui/icons-material/SportsBasketballOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import SportsHockeyOutlinedIcon from "@mui/icons-material/SportsHockeyOutlined";
-// import { Drawer, SvgIconProps } from "@mui/material";
-import { SvgIconProps } from "@mui/material";
+import { SvgIconProps, Typography } from "@mui/material";
+import UseMediaQuery from "../../helpers/UseMediaQuery";
 
 const sports: {
   sport: string;
@@ -38,13 +39,28 @@ const sports: {
   },
 ];
 
+const drawerDirection = (mobileViewport: boolean) => {
+  return mobileViewport ? "top" : "left";
+};
+
 type Anchor = "top" | "left";
 
 const Drawer: React.FC = () => {
-  const [state, setState] = React.useState({
+  const [anchor, setAnchor] = useState<Anchor>("top");
+
+  const isMobile = UseMediaQuery("(max-width:600px)");
+
+  const [state, setState] = useState({
     top: false,
     left: false,
   });
+
+  useEffect(() => {
+    setAnchor(drawerDirection(isMobile));
+  }, [isMobile]);
+
+  console.log(`anchor: ${anchor})`);
+  console.log(`isMobile: ${isMobile})`);
 
   const toggleDrawer =
     (anchor: Anchor, open: boolean) =>
@@ -95,25 +111,26 @@ const Drawer: React.FC = () => {
   );
 
   return (
-    <div>
-      {(["left", "top"] as const).map(anchor => (
-        <React.Fragment key={anchor}>
-          <Box m={3} position="static" style={{ float: "left" }}>
-            <Button onClick={toggleDrawer(anchor, true)}>
-              {<MenuOutlinedIcon fontSize="large" />}
-            </Button>
-            <SwipeableDrawer
-              anchor={anchor}
-              open={state[anchor]}
-              onClose={toggleDrawer(anchor, false)}
-              onOpen={toggleDrawer(anchor, true)}
-            >
-              {list(anchor)}
-            </SwipeableDrawer>
-          </Box>
-        </React.Fragment>
-      ))}
-    </div>
+    <Box sx={{ height: "50px" }}>
+      <Box component="span" sx={{ float: "left" }}>
+        <Button onClick={toggleDrawer(anchor, true)}>
+          {<MenuOutlinedIcon fontSize="large" />}
+        </Button>
+        <SwipeableDrawer
+          anchor={anchor}
+          open={state[anchor]}
+          onClose={toggleDrawer(anchor, false)}
+          onOpen={toggleDrawer(anchor, true)}
+        >
+          {list(anchor)}
+        </SwipeableDrawer>
+      </Box>
+      <Box m={2}>
+        <Typography variant="h4">
+          Prediction B<SmartToyOutlinedIcon />t
+        </Typography>
+      </Box>
+    </Box>
   );
 };
 export default Drawer;

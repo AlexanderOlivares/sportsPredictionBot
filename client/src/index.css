@@ -38,3 +38,10 @@ code {
 .nfl-logo {
   margin: auto;
 }
+
+.form-select {
+  margin: 0 auto;
+  padding: 10px;
+  min-width: 120px;
+  max-width: 500px;
+}

@@ -75,8 +75,8 @@ const Nfl: React.FC = () => {
 
   return (
     <>
-      <Box>
-        <Box p={1} sx={{ minWidth: 120 }}>
+      <Box justifyContent="center" alignItems="center">
+        <Box className="form-select">
           <FormControl fullWidth>
             <InputLabel id="select-nfl-year">Year</InputLabel>
             <Select
@@ -95,7 +95,7 @@ const Nfl: React.FC = () => {
             </Select>
           </FormControl>
         </Box>
-        <Box p={1} sx={{ minWidth: 120 }}>
+        <Box className="form-select">
           <FormControl fullWidth>
             <InputLabel id="select-nfl-week">Week</InputLabel>
             <Select
@@ -125,7 +125,8 @@ const Nfl: React.FC = () => {
       <Box>
         <Grid
           container
-          spacing={4}
+          spacing={{ xs: 2, md: 3 }}
+          columns={{ xs: 4, sm: 8, md: 12 }}
           justifyContent="center"
           alignItems="center"
           direction="row"
@@ -133,7 +134,7 @@ const Nfl: React.FC = () => {
           {predictionData &&
             predictionData.map((game, index) => {
               return (
-                <Grid item>
+                <Grid item lg={2}>
                   <NflCard key={index} game={game} />
                 </Grid>
               );
