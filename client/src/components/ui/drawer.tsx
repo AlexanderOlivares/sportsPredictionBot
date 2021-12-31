@@ -8,18 +8,13 @@ import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import SmartToyOutlinedIcon from "@mui/icons-material/SmartToyOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import SportsFootballOutlinedIcon from "@mui/icons-material/SportsFootballOutlined";
 import SportsBasketballOutlinedIcon from "@mui/icons-material/SportsBasketballOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import SportsHockeyOutlinedIcon from "@mui/icons-material/SportsHockeyOutlined";
-import { SvgIconProps, Typography } from "@mui/material";
-import UseMediaQuery from "../../helpers/UseMediaQuery";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
+import { SvgIconProps } from "@mui/material";
+import UseMediaQuery from "../helpers/UseMediaQuery";
 
 const sports: {
   sport: string;
@@ -62,9 +57,6 @@ const Drawer: React.FC = () => {
   useEffect(() => {
     setAnchor(drawerDirection(isMobile));
   }, [isMobile]);
-
-  console.log(`anchor: ${anchor})`);
-  console.log(`isMobile: ${isMobile})`);
 
   const toggleDrawer =
     (anchor: Anchor, open: boolean) =>

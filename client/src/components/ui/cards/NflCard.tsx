@@ -1,9 +1,26 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import images from "../../../assets/images";
+
+const makeFortyNinersSF = (team: string) => (team === "49ers" ? "SF" : team);
+
+const isUnderdogOutrightWinner = (
+  home: string,
+  home_predicted: string,
+  away_predicted: string,
+  fav: string
+): boolean => {
+  if (Number(away_predicted) === Number(home_predicted)) {
+    return false;
+  }
+  if (home === fav) {
+    return Number(away_predicted) > Number(home_predicted);
+  }
+  return Number(home_predicted) > Number(away_predicted);
+};
 
 interface CardProps {
   game: {
@@ -17,13 +34,23 @@ interface CardProps {
   };
 }
 
-const makeFortyNinersSF = (team: string) => (team === "49ers" ? "SF" : team);
-
 const NflCard: React.FC<CardProps> = ({ game }) => {
+  const [upset, setUpset] = useState<boolean>(false);
+
   const { away_team, home_team }: { away_team: string; home_team: string } = game;
 
   const awayTeam = makeFortyNinersSF(away_team);
   const homeTeam = makeFortyNinersSF(home_team);
+
+  useEffect(() => {
+    const isUpset = isUnderdogOutrightWinner(
+      homeTeam,
+      game.home_predicted,
+      game.away_predicted,
+      game.favored_team
+    );
+    setUpset(isUpset);
+  }, []);
 
   return (
     <>

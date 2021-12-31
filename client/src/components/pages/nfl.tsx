@@ -69,9 +69,7 @@ const Nfl: React.FC = () => {
     getNflScores();
   }, []);
 
-  const scrollToTop = () => {
-    window.scrollTo(0, 0);
-  };
+  const scrollToTop = () => window.scrollTo(0, 0);
 
   return (
     <>
