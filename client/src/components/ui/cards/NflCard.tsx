@@ -4,10 +4,13 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import images from "../../../assets/images";
+import theme from "../Theme";
 
-const makeFortyNinersSF = (team: string) => (team === "49ers" ? "SF" : team);
+const secondaryColor = theme.palette.secondary.main;
 
-const isUnderdogOutrightWinner = (
+export const makeFortyNinersSF = (team: string) => (team === "49ers" ? "SF" : team);
+
+export const isUnderdogOutrightWinner = (
   home: string,
   home_predicted: string,
   away_predicted: string,
@@ -52,9 +55,18 @@ const NflCard: React.FC<CardProps> = ({ game }) => {
     setUpset(isUpset);
   }, []);
 
+  console.log(theme.palette.secondary.main);
+
   return (
     <>
-      <Card sx={{ minWidth: 345, maxWidth: 345 }}>
+      <Card
+        variant="outlined"
+        sx={{
+          minWidth: 345,
+          maxWidth: 345,
+          border: upset ? `2px solid ${secondaryColor}` : "none",
+        }}
+      >
         <CardContent>
           <Box className="nfl-card">
             <Box className="card-box">
@@ -115,6 +127,11 @@ const NflCard: React.FC<CardProps> = ({ game }) => {
               {game.pick}
             </Typography>
           </Box>
+          {upset && (
+            <Box className="underdog-winner" p={1}>
+              <Typography variant="body2">Underdog Straight Up Winner</Typography>
+            </Box>
+          )}
         </CardContent>
       </Card>
     </>
