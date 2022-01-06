@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import images from "../../../assets/images";
 import theme from "../Theme";
 
-const secondaryColor = theme.palette.secondary.main;
+const secondary = theme.palette.secondary;
 
 export const makeFortyNinersSF = (team: string) => (team === "49ers" ? "SF" : team);
 
@@ -55,8 +55,6 @@ const NflCard: React.FC<CardProps> = ({ game }) => {
     setUpset(isUpset);
   }, []);
 
-  console.log(theme.palette.secondary.main);
-
   return (
     <>
       <Card
@@ -64,7 +62,7 @@ const NflCard: React.FC<CardProps> = ({ game }) => {
         sx={{
           minWidth: 345,
           maxWidth: 345,
-          border: upset ? `2px solid ${secondaryColor}` : "none",
+          border: upset ? `2px solid ${secondary}` : "none",
         }}
       >
         <CardContent>

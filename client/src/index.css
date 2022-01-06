@@ -47,5 +47,19 @@ code {
 }
 
 .underdog-winner {
-  /* make this text pulse */
+  animation: pulse-red 2s infinite;
+}
+
+@keyframes pulse-red {
+  0% {
+    color: black;
+  }
+
+  70% {
+    color: #ff7043;
+  }
+
+  100% {
+    color: black;
+  }
 }

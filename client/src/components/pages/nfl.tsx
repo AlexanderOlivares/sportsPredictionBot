@@ -75,7 +75,7 @@ const Nfl: React.FC = () => {
     <>
       <Box justifyContent="center" alignItems="center">
         <Box className="form-select">
-          <FormControl fullWidth>
+          {/* <FormControl fullWidth>
             <InputLabel id="select-nfl-year">Year</InputLabel>
             <Select
               value={selectOptions.year}
@@ -91,7 +91,7 @@ const Nfl: React.FC = () => {
                 );
               })}
             </Select>
-          </FormControl>
+          </FormControl> */}
         </Box>
         <Box className="form-select">
           <FormControl fullWidth>
@@ -117,7 +117,7 @@ const Nfl: React.FC = () => {
         </Button>
       </Box>
       <Box p={3}>
-        <Typography variant="h5">NFL {selectOptions.week}</Typography>
+        <Typography variant="h4">NFL Week {selectOptions.week}</Typography>
       </Box>
       {isLoading && <Spinner />}
       <Box>
