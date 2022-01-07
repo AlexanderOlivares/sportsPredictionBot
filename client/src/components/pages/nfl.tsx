@@ -11,11 +11,8 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import IconButton from "@mui/material/IconButton";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import Grid from "@mui/material/Grid";
+import { getCurrentNflWeek, weeks, years } from "../../seasonStructure/nflSeason";
 
-interface IYearAndWeek {
-  year: string;
-  week: string;
-}
 interface IPredictionData {
   away_predicted: string;
   away_team: string;
@@ -26,37 +23,29 @@ interface IPredictionData {
   vegas_line: string;
 }
 
-const Nfl: React.FC = () => {
-  const years = ["2021", "2022", "2023"];
-  const weeks = ["9", "10", "11", "12"];
+// we dont need the word week in "NFL Week x" if it's playoffs
+export const displayTheWordWeek = (week: string) => (Number(week) ? "Week" : "");
 
+const scrollToTop = () => window.scrollTo(0, 0);
+
+const Nfl: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [selectOptions, setSelectOptions] = useState<IYearAndWeek>({
-    year: years[0],
-    week: weeks[weeks.length - 1],
-  });
+  const [year, setYear] = useState<string>("");
+  const [week, setWeek] = useState<string>("Loading...");
 
   const [predictionData, setPredictionData] = useState<IPredictionData[]>();
 
   const handleSelectChange = (event: SelectChangeEvent) => {
     const { name, value }: { name: string; value: string } = event.target;
-    setSelectOptions(prev => {
-      return {
-        ...prev,
-        [name]: value,
-      };
-    });
+    name === "week" ? setWeek(value) : setYear(value);
   };
 
   const getNflScores = async () => {
     try {
       setIsLoading(true);
-      let response = await fetch(
-        `http://localhost:5000/api/nfl-week/${selectOptions.week}`,
-        {
-          method: "GET",
-        }
-      );
+      const response = await fetch(`http://localhost:5000/api/nfl-week/${week}`, {
+        method: "GET",
+      });
       const predictions = await response.json();
       setPredictionData(predictions);
       setIsLoading(false);
@@ -67,18 +56,19 @@ const Nfl: React.FC = () => {
 
   useEffect(() => {
     getNflScores();
+    getCurrentNflWeek()
+      .then(week => (week ? setWeek(week) : setWeek(weeks[weeks.length - 1])))
+      .catch(console.log);
   }, []);
-
-  const scrollToTop = () => window.scrollTo(0, 0);
 
   return (
     <>
-      <Box justifyContent="center" alignItems="center">
-        <Box className="form-select">
-          {/* <FormControl fullWidth>
+      <Box pt={2} justifyContent="center" alignItems="center">
+        {/* <Box className="form-select">
+          <FormControl fullWidth>
             <InputLabel id="select-nfl-year">Year</InputLabel>
             <Select
-              value={selectOptions.year}
+              value={year}
               label={"year"}
               name="year"
               onChange={handleSelectChange}
@@ -91,16 +81,17 @@ const Nfl: React.FC = () => {
                 );
               })}
             </Select>
-          </FormControl> */}
-        </Box>
+          </FormControl>
+        </Box> */}
         <Box className="form-select">
           <FormControl fullWidth>
             <InputLabel id="select-nfl-week">Week</InputLabel>
             <Select
-              value={selectOptions.week}
+              value={week}
               label={"week"}
               name="week"
               onChange={handleSelectChange}
+              MenuProps={{ sx: { maxHeight: 500 } }}
             >
               {weeks.map(option => {
                 return (
@@ -116,9 +107,13 @@ const Nfl: React.FC = () => {
           Go
         </Button>
       </Box>
-      <Box p={3}>
-        <Typography variant="h4">NFL Week {selectOptions.week}</Typography>
-      </Box>
+      {!isLoading && (
+        <Box p={3}>
+          <Typography variant="h4">
+            NFL {displayTheWordWeek(week)} {week}
+          </Typography>
+        </Box>
+      )}
       {isLoading && <Spinner />}
       <Box>
         <Grid

@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import images from "../../../assets/images";
 import theme from "../Theme";
 
-const secondary = theme.palette.secondary;
+const secondary = theme.palette.secondary.main;
 
 export const makeFortyNinersSF = (team: string) => (team === "49ers" ? "SF" : team);
 
