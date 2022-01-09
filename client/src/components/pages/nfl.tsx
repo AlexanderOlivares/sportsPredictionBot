@@ -23,17 +23,25 @@ interface IPredictionData {
   vegas_line: string;
 }
 
-// we dont need the word week in "NFL Week x" if it's playoffs
-export const displayTheWordWeek = (week: string) => (Number(week) ? "Week" : "");
+interface IFilterOptions {
+  favorite: Boolean;
+  underdog: Boolean;
+}
 
+export const displayTheWordWeek = (week: string) => (Number(week) ? "Week" : "");
 const scrollToTop = () => window.scrollTo(0, 0);
+const latestWeek: string = weeks[weeks.length - 1];
 
 const Nfl: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [year, setYear] = useState<string>("");
-  const [week, setWeek] = useState<string>("Loading...");
-
+  const [week, setWeek] = useState<string>(latestWeek);
+  const [activeFilter, setActiveFilter] = useState<boolean>(false);
   const [predictionData, setPredictionData] = useState<IPredictionData[]>();
+  const [filters, setFilters] = useState<IFilterOptions>({
+    favorite: true,
+    underdog: false,
+  });
 
   const handleSelectChange = (event: SelectChangeEvent) => {
     const { name, value }: { name: string; value: string } = event.target;
@@ -54,12 +62,42 @@ const Nfl: React.FC = () => {
     }
   };
 
+  const toggleFilter = () => {
+    if (filters.favorite || filters.underdog) {
+      setActiveFilter(true);
+    } else {
+      setActiveFilter(false);
+    }
+  };
+
+  const filterPredictionResults = (
+    predictionData: IPredictionData[],
+    filters: IFilterOptions
+  ) => {
+    if (filters.favorite) {
+      return predictionData.filter(game => game.pick.includes("-"));
+    }
+    if (filters.underdog) {
+      return predictionData.filter(game => game.pick.includes("+"));
+    }
+  };
+
   useEffect(() => {
     getNflScores();
     getCurrentNflWeek()
-      .then(week => (week ? setWeek(week) : setWeek(weeks[weeks.length - 1])))
+      .then(week => {
+        if (week && weeks.includes(week)) {
+          setWeek(week);
+        }
+      })
       .catch(console.log);
   }, []);
+
+  useEffect(() => {
+    if (!predictionData) return;
+    const filtered = filterPredictionResults(predictionData, filters);
+    setPredictionData(filtered);
+  }, [activeFilter]);
 
   return (
     <>
@@ -105,6 +143,11 @@ const Nfl: React.FC = () => {
         </Box>
         <Button variant="contained" onClick={getNflScores}>
           Go
+        </Button>
+      </Box>
+      <Box p={2}>
+        <Button variant="contained" onClick={toggleFilter}>
+          filter
         </Button>
       </Box>
       {!isLoading && (

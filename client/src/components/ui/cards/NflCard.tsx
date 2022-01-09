@@ -50,10 +50,10 @@ const NflCard: React.FC<CardProps> = ({ game }) => {
       homeTeam,
       game.home_predicted,
       game.away_predicted,
-      game.favored_team
+      makeFortyNinersSF(game.favored_team)
     );
     setUpset(isUpset);
-  }, []);
+  }, [game]);
 
   return (
     <>
