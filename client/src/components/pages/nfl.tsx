@@ -12,6 +12,11 @@ import IconButton from "@mui/material/IconButton";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import Grid from "@mui/material/Grid";
 import { getCurrentNflWeek, weeks, years } from "../../seasonStructure/nflSeason";
+import Checkbox from "@mui/material/Checkbox";
+import Modal from "@mui/material/Modal";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import GlobalStyles from "../../GlobalStyles";
 
 interface IPredictionData {
   away_predicted: string;
@@ -23,7 +28,7 @@ interface IPredictionData {
   vegas_line: string;
 }
 
-interface IFilterOptions {
+export interface IFilterOptions {
   favorite: Boolean;
   underdog: Boolean;
 }
@@ -42,6 +47,9 @@ const Nfl: React.FC = () => {
     favorite: true,
     underdog: false,
   });
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const handleSelectChange = (event: SelectChangeEvent) => {
     const { name, value }: { name: string; value: string } = event.target;
@@ -68,6 +76,7 @@ const Nfl: React.FC = () => {
     } else {
       setActiveFilter(false);
     }
+    handleClose();
   };
 
   const filterPredictionResults = (
@@ -145,10 +154,69 @@ const Nfl: React.FC = () => {
           Go
         </Button>
       </Box>
-      <Box p={2}>
-        <Button variant="contained" onClick={toggleFilter}>
-          filter
-        </Button>
+      <Box>
+        <Button onClick={handleOpen}>Open modal</Button>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={GlobalStyles.nflModal}>
+            <Typography
+              textAlign="center"
+              id="modal-modal-title"
+              variant="h5"
+              component="h2"
+            >
+              Filter By
+            </Typography>
+            <Box display="flex" justifyContent="center" alignItems="center">
+              <FormControl>
+                <Box m={2}>
+                  <FormGroup row={true}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          value={"Any"}
+                          //   onChange={handleCheckboxes}
+                          color="secondary"
+                        />
+                      }
+                      label="Favs"
+                      labelPlacement="top"
+                    />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          value={"Any"}
+                          //   onChange={handleCheckboxes}
+                          color="secondary"
+                        />
+                      }
+                      label="Dogs"
+                      labelPlacement="top"
+                    />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          value={"Any"}
+                          //   onChange={handleCheckboxes}
+                          color="secondary"
+                        />
+                      }
+                      label="Dog SU Winner"
+                      labelPlacement="top"
+                    />
+                  </FormGroup>
+                </Box>
+              </FormControl>
+            </Box>
+            <Box textAlign="center">
+              <Button onClick={toggleFilter}>Apply</Button>
+            </Box>
+          </Box>
+        </Modal>
       </Box>
       {!isLoading && (
         <Box p={3}>
