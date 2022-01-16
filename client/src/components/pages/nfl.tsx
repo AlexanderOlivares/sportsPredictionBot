@@ -17,6 +17,7 @@ import Modal from "@mui/material/Modal";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import GlobalStyles from "../../GlobalStyles";
+import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 
 interface IPredictionData {
   away_predicted: string;
@@ -41,15 +42,18 @@ const Nfl: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [year, setYear] = useState<string>("");
   const [week, setWeek] = useState<string>(latestWeek);
-  const [activeFilter, setActiveFilter] = useState<boolean>(false);
-  const [predictionData, setPredictionData] = useState<IPredictionData[]>();
+  const [displayedPredictionData, setDisplayedPredictionData] =
+    useState<IPredictionData[]>();
+  const [completePredictionData, setCompletePredictionData] =
+    useState<IPredictionData[]>();
   const [filters, setFilters] = useState<IFilterOptions>({
-    favorite: true,
+    favorite: false,
     underdog: false,
   });
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+
+  const toggleModal = () => setOpen(prev => !prev);
+  const clearFilter = () => setFilters({ favorite: false, underdog: false });
 
   const handleSelectChange = (event: SelectChangeEvent) => {
     const { name, value }: { name: string; value: string } = event.target;
@@ -63,32 +67,31 @@ const Nfl: React.FC = () => {
         method: "GET",
       });
       const predictions = await response.json();
-      setPredictionData(predictions);
+      setCompletePredictionData(predictions);
+      setDisplayedPredictionData(predictions);
       setIsLoading(false);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const toggleFilter = () => {
-    if (filters.favorite || filters.underdog) {
-      setActiveFilter(true);
-    } else {
-      setActiveFilter(false);
-    }
-    handleClose();
-  };
-
   const filterPredictionResults = (
-    predictionData: IPredictionData[],
+    displayedPredictionData: IPredictionData[],
     filters: IFilterOptions
   ) => {
     if (filters.favorite) {
-      return predictionData.filter(game => game.pick.includes("-"));
+      return displayedPredictionData.filter(game => game.pick.includes("-"));
     }
     if (filters.underdog) {
-      return predictionData.filter(game => game.pick.includes("+"));
+      return displayedPredictionData.filter(game => game.pick.includes("+"));
     }
+    return displayedPredictionData;
+  };
+
+  const handleCheckboxes = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const { name, checked }: { name: string; checked: boolean } = event.target;
+    setFilters(prev => ({ ...prev, [name]: checked }));
+    toggleModal();
   };
 
   useEffect(() => {
@@ -103,10 +106,10 @@ const Nfl: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (!predictionData) return;
-    const filtered = filterPredictionResults(predictionData, filters);
-    setPredictionData(filtered);
-  }, [activeFilter]);
+    if (!displayedPredictionData || !completePredictionData) return;
+    const filtered = filterPredictionResults(completePredictionData, filters);
+    setDisplayedPredictionData(filtered);
+  }, [filters]);
 
   return (
     <>
@@ -154,11 +157,19 @@ const Nfl: React.FC = () => {
           Go
         </Button>
       </Box>
+      <Box pt={1}>
+        {filters.favorite || filters.underdog ? (
+          <Button onClick={clearFilter}>Clear Filter</Button>
+        ) : (
+          <Button onClick={toggleModal}>
+            <FilterAltOutlinedIcon />
+          </Button>
+        )}
+      </Box>
       <Box>
-        <Button onClick={handleOpen}>Open modal</Button>
         <Modal
           open={open}
-          onClose={handleClose}
+          onClose={toggleModal}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
@@ -178,42 +189,30 @@ const Nfl: React.FC = () => {
                     <FormControlLabel
                       control={
                         <Checkbox
-                          value={"Any"}
-                          //   onChange={handleCheckboxes}
+                          value={filters.favorite}
+                          onChange={handleCheckboxes}
                           color="secondary"
+                          name="favorite"
                         />
                       }
-                      label="Favs"
+                      label="Favorite"
                       labelPlacement="top"
                     />
                     <FormControlLabel
                       control={
                         <Checkbox
-                          value={"Any"}
-                          //   onChange={handleCheckboxes}
+                          value={filters.underdog}
+                          onChange={handleCheckboxes}
                           color="secondary"
+                          name="underdog"
                         />
                       }
-                      label="Dogs"
-                      labelPlacement="top"
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          value={"Any"}
-                          //   onChange={handleCheckboxes}
-                          color="secondary"
-                        />
-                      }
-                      label="Dog SU Winner"
+                      label="Underdog"
                       labelPlacement="top"
                     />
                   </FormGroup>
                 </Box>
               </FormControl>
-            </Box>
-            <Box textAlign="center">
-              <Button onClick={toggleFilter}>Apply</Button>
             </Box>
           </Box>
         </Modal>
@@ -235,8 +234,8 @@ const Nfl: React.FC = () => {
           alignItems="center"
           direction="row"
         >
-          {predictionData &&
-            predictionData.map((game, index) => {
+          {displayedPredictionData &&
+            displayedPredictionData.map((game, index) => {
               return (
                 <Grid item lg={2}>
                   <NflCard key={index} game={game} />
