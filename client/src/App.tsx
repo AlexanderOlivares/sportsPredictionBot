@@ -14,12 +14,12 @@ function App() {
         <Router>
           <AppBar />
           <Routes>
+            <Route path="/" element={<Home />} />
             <Route path="/nfl" element={<Nfl />} />
             {/* <Route path="/nhl" element={<Nfl />} />
           <Route path="/nba" element={<Nfl />} /> */}
           </Routes>
         </Router>
-        <Home />
       </ThemeProvider>
     </div>
   );

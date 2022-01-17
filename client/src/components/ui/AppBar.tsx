@@ -13,7 +13,7 @@ export default function ButtonAppBar() {
         <Toolbar>
           <Drawer />
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Prediction B<SmartToyOutlinedIcon />T
+            Prediction B<SmartToyOutlinedIcon sx={{ verticalAlign: "sub" }} />T
           </Typography>
         </Toolbar>
       </AppBar>

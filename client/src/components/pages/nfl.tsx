@@ -55,11 +55,6 @@ const Nfl: React.FC = () => {
   const toggleModal = () => setOpen(prev => !prev);
   const clearFilter = () => setFilters({ favorite: false, underdog: false });
 
-  const handleSelectChange = (event: SelectChangeEvent) => {
-    const { name, value }: { name: string; value: string } = event.target;
-    name === "week" ? setWeek(value) : setYear(value);
-  };
-
   const getNflScores = async () => {
     try {
       setIsLoading(true);
@@ -94,6 +89,12 @@ const Nfl: React.FC = () => {
     toggleModal();
   };
 
+  const handleSelectChange = (event: SelectChangeEvent) => {
+    const { name, value }: { name: string; value: string } = event.target;
+    name === "week" ? setWeek(value) : setYear(value);
+    getNflScores();
+  };
+
   useEffect(() => {
     getNflScores();
     getCurrentNflWeek()
@@ -106,7 +107,7 @@ const Nfl: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (!displayedPredictionData || !completePredictionData) return;
+    if (!completePredictionData) return;
     const filtered = filterPredictionResults(completePredictionData, filters);
     setDisplayedPredictionData(filtered);
   }, [filters]);
@@ -153,9 +154,6 @@ const Nfl: React.FC = () => {
             </Select>
           </FormControl>
         </Box>
-        <Button variant="contained" onClick={getNflScores}>
-          Go
-        </Button>
       </Box>
       <Box pt={1}>
         {filters.favorite || filters.underdog ? (
