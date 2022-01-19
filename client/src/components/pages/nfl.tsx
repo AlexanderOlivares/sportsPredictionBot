@@ -16,7 +16,7 @@ import Checkbox from "@mui/material/Checkbox";
 import Modal from "@mui/material/Modal";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import GlobalStyles from "../../GlobalStyles";
+import GlobalStyles from "../GlobalStyles";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 
 interface IPredictionData {
@@ -114,7 +114,7 @@ const Nfl: React.FC = () => {
 
   return (
     <>
-      <Box pt={2} justifyContent="center" alignItems="center">
+      <Box pt={2} className="nfl" justifyContent="center" alignItems="center">
         {/* <Box className="form-select">
           <FormControl fullWidth>
             <InputLabel id="select-nfl-year">Year</InputLabel>
