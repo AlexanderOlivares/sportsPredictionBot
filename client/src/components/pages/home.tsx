@@ -1,10 +1,11 @@
 import React from "react";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import SmartToyOutlinedIcon from "@mui/icons-material/SmartToyOutlined";
+import HomeCard from "../ui/cards/HomeCard";
+import { HomeCardData } from "../../assets/textContent/homeCardData";
 
-export default function Home() {
+const Home: React.FC = () => {
   return (
     <>
       <Box m={2}>
@@ -17,6 +18,13 @@ export default function Home() {
           web and makes picks based on the Vegas betting line.
         </Typography>
       </Box>
+      {HomeCardData.map(card => {
+        return (
+          <HomeCard image={card.image} headline={card.headline} body={card.body} />
+        );
+      })}
     </>
   );
-}
+};
+
+export default Home;

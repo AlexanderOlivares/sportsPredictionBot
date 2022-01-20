@@ -4,13 +4,12 @@ import Home from "./components/pages/Home";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import Nfl from "./components/pages/Nfl";
 import AppBar from "./components/ui/AppBar";
-import theme from "./components/ui/Theme";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { PaletteMode } from "@mui/material";
 
 function App() {
-  const [darkMode, setDarkMode] = React.useState<PaletteMode>("light");
+  const [darkMode, setDarkMode] = useState<PaletteMode>("light");
 
   const theme = createTheme({
     palette: {

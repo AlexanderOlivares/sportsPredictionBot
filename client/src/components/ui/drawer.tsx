@@ -81,25 +81,30 @@ const Drawer: React.FC = () => {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {["Home"].map(text => (
-          <ListItem button key={text}>
-            <ListItemIcon>{<HomeOutlinedIcon />}</ListItemIcon>
-            <Link to={"/"}>
-              <ListItemText primary={text} />
-            </Link>
-          </ListItem>
-        ))}
+        <ListItem button key={"home"} component={Link} to={"/"}>
+          <ListItemIcon>{<HomeOutlinedIcon />}</ListItemIcon>
+          <ListItemText
+            primary={"Home"}
+            primaryTypographyProps={{ fontSize: "18px" }}
+          />
+        </ListItem>
       </List>
       <Divider />
       <List>
         {sports.map(sport => (
-          <ListItem button key={sport.sport}>
+          <ListItem
+            button
+            key={sport.sport}
+            component={Link}
+            to={`${sport.sport.toLowerCase()}`}
+          >
             <ListItemIcon>
               <sport.icon />
             </ListItemIcon>
-            <Link to={`${sport.sport.toLowerCase()}`}>
-              <ListItemText primary={`${sport.sport} ${sport.text && sport.text}`} />
-            </Link>
+            <ListItemText
+              primary={`${sport.sport} ${sport.text && sport.text}`}
+              primaryTypographyProps={{ fontSize: "18px" }}
+            />
           </ListItem>
         ))}
       </List>

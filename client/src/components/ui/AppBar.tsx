@@ -6,7 +6,12 @@ import Drawer from "./Drawer";
 import SmartToyOutlinedIcon from "@mui/icons-material/SmartToyOutlined";
 import HideOnScroll from "./HideOnScroll";
 import { PaletteMode } from "@mui/material";
-import Button from "@mui/material/Button";
+import ToggleOnIcon from "@mui/icons-material/ToggleOn";
+import ToggleOffOutlinedIcon from "@mui/icons-material/ToggleOffOutlined";
+import IconButton from "@mui/material/IconButton";
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+import Box from "@mui/material/Box";
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 
 interface DarkModeProps {
   darkMode: PaletteMode;
@@ -30,9 +35,24 @@ const ButtonAppBar: React.FC<DarkModeProps> = ({
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Prediction B<SmartToyOutlinedIcon sx={{ verticalAlign: "sub" }} />T
           </Typography>
-          <Button variant="contained" onClick={toggleDarkMode}>
-            Dark
-          </Button>
+          <Box>
+            <IconButton onClick={toggleDarkMode}>
+              {darkMode === "dark" ? (
+                <ToggleOnIcon />
+              ) : (
+                <ToggleOffOutlinedIcon style={{ color: "white" }} />
+              )}
+            </IconButton>
+          </Box>
+          <Box>
+            <IconButton onClick={toggleDarkMode}>
+              {darkMode === "dark" ? (
+                <DarkModeOutlinedIcon />
+              ) : (
+                <LightModeOutlinedIcon style={{ color: "white" }} />
+              )}
+            </IconButton>
+          </Box>
         </Toolbar>
       </AppBar>
     </HideOnScroll>
