@@ -9,34 +9,11 @@ import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import SportsFootballOutlinedIcon from "@mui/icons-material/SportsFootballOutlined";
-import SportsBasketballOutlinedIcon from "@mui/icons-material/SportsBasketballOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import SportsHockeyOutlinedIcon from "@mui/icons-material/SportsHockeyOutlined";
 import { SvgIconProps } from "@mui/material";
 import UseMediaQuery from "../helpers/UseMediaQuery";
-
-const sports: {
-  sport: string;
-  icon: (props: SvgIconProps) => JSX.Element;
-  text: string;
-}[] = [
-  {
-    sport: "NFL",
-    icon: SportsFootballOutlinedIcon,
-    text: "",
-  },
-  {
-    sport: "NBA",
-    icon: SportsBasketballOutlinedIcon,
-    text: "Coming Soon",
-  },
-  {
-    sport: "NHL",
-    icon: SportsHockeyOutlinedIcon,
-    text: "Coming Soon",
-  },
-];
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import sports from "../../assets/textContent/drawerContent";
 
 const drawerDirection = (mobileViewport: boolean) => {
   return mobileViewport ? "top" : "left";
@@ -45,10 +22,8 @@ const drawerDirection = (mobileViewport: boolean) => {
 type Anchor = "top" | "left";
 
 const Drawer: React.FC = () => {
-  const [anchor, setAnchor] = useState<Anchor>("top");
-
   const isMobile = UseMediaQuery("(max-width:600px)");
-
+  const [anchor, setAnchor] = useState<Anchor>("top");
   const [state, setState] = useState({
     top: false,
     left: false,
@@ -69,25 +44,32 @@ const Drawer: React.FC = () => {
       ) {
         return;
       }
-
       setState({ ...state, [anchor]: open });
     };
 
+  const standAloneMenuOption = (
+    key: string,
+    path: string,
+    Icon: (props: SvgIconProps) => JSX.Element
+  ) => {
+    return (
+      <ListItem button key={key} component={Link} to={path}>
+        <ListItemIcon>{<Icon />}</ListItemIcon>
+        <ListItemText primary={key} primaryTypographyProps={{ fontSize: "24px" }} />
+      </ListItem>
+    );
+  };
+
   const list = (anchor: Anchor) => (
     <Box
-      sx={{ width: anchor === "top" ? "auto" : 250 }}
+      sx={{ width: anchor === "top" ? "auto" : 325 }}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        <ListItem button key={"home"} component={Link} to={"/"}>
-          <ListItemIcon>{<HomeOutlinedIcon />}</ListItemIcon>
-          <ListItemText
-            primary={"Home"}
-            primaryTypographyProps={{ fontSize: "18px" }}
-          />
-        </ListItem>
+        {standAloneMenuOption("home", "/", HomeOutlinedIcon)}
+        {standAloneMenuOption("about", "/about", InfoOutlinedIcon)}
       </List>
       <Divider />
       <List>
@@ -103,7 +85,7 @@ const Drawer: React.FC = () => {
             </ListItemIcon>
             <ListItemText
               primary={`${sport.sport} ${sport.text && sport.text}`}
-              primaryTypographyProps={{ fontSize: "18px" }}
+              primaryTypographyProps={{ fontSize: "24px" }}
             />
           </ListItem>
         ))}

@@ -32,8 +32,9 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/nfl" element={<Nfl />} />
-              {/* <Route path="/nhl" element={<Nfl />} />
-          		<Route path="/nba" element={<Nfl />} /> */}
+              {/* <Route path="/mlb" element={<Mlb />} />
+              <Route path="/nba" element={<Nba />} />
+              <Route path="/about" element={<About />} /> */}
             </Routes>
           </Router>
         </CssBaseline>
