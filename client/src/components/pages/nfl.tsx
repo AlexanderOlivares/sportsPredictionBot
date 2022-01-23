@@ -55,21 +55,6 @@ const Nfl: React.FC = () => {
   const toggleModal = () => setOpen(prev => !prev);
   const clearFilter = () => setFilters({ favorite: false, underdog: false });
 
-  const getNflScores = async () => {
-    try {
-      setIsLoading(true);
-      const response = await fetch(`http://localhost:5000/api/nfl-week/${week}`, {
-        method: "GET",
-      });
-      const predictions = await response.json();
-      setCompletePredictionData(predictions);
-      setDisplayedPredictionData(predictions);
-      setIsLoading(false);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const filterPredictionResults = (
     displayedPredictionData: IPredictionData[],
     filters: IFilterOptions
@@ -83,6 +68,21 @@ const Nfl: React.FC = () => {
     return displayedPredictionData;
   };
 
+  const getNflScores = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch(`http://localhost:5000/api/nfl-week/${week}`, {
+        method: "GET",
+      });
+      const predictions = await response.json();
+      setCompletePredictionData(predictions);
+      setDisplayedPredictionData(filterPredictionResults(predictions, filters));
+      setIsLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleCheckboxes = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, checked }: { name: string; checked: boolean } = event.target;
     setFilters(prev => ({ ...prev, [name]: checked }));
@@ -92,7 +92,6 @@ const Nfl: React.FC = () => {
   const handleSelectChange = (event: SelectChangeEvent) => {
     const { name, value }: { name: string; value: string } = event.target;
     name === "week" ? setWeek(value) : setYear(value);
-    getNflScores();
   };
 
   useEffect(() => {
@@ -104,7 +103,7 @@ const Nfl: React.FC = () => {
         }
       })
       .catch(console.log);
-  }, []);
+  }, [week]);
 
   useEffect(() => {
     if (!completePredictionData) return;

@@ -1,13 +1,13 @@
 import React from "react";
 import Box from "@mui/material/Box";
+import { AboutCardData } from "../../assets/textContent/aboutCardContent";
 import ContentCard from "../ui/cards/ContentCard";
-import { HomeCardData } from "../../assets/textContent/homeCardContent";
 
-const Home: React.FC = () => {
+const About: React.FC = () => {
   return (
     <>
       <Box m={2}>
-        {HomeCardData.map(card => {
+        {AboutCardData.map(card => {
           return (
             <ContentCard
               Icon={card.Icon}
@@ -23,4 +23,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default About;

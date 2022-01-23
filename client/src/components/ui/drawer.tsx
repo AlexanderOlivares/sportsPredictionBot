@@ -68,8 +68,8 @@ const Drawer: React.FC = () => {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {standAloneMenuOption("home", "/", HomeOutlinedIcon)}
-        {standAloneMenuOption("about", "/about", InfoOutlinedIcon)}
+        {standAloneMenuOption("Home", "/", HomeOutlinedIcon)}
+        {standAloneMenuOption("About", "/about", InfoOutlinedIcon)}
       </List>
       <Divider />
       <List>

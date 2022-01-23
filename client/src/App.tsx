@@ -7,6 +7,8 @@ import AppBar from "./components/ui/AppBar";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { PaletteMode } from "@mui/material";
+import About from "./components/pages/About";
+import Footer from "./components/ui/footer";
 
 function App() {
   const [darkMode, setDarkMode] = useState<PaletteMode>("light");
@@ -32,10 +34,11 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/nfl" element={<Nfl />} />
+              <Route path="/about" element={<About />} />
               {/* <Route path="/mlb" element={<Mlb />} />
-              <Route path="/nba" element={<Nba />} />
-              <Route path="/about" element={<About />} /> */}
+               <Route path="/nba" element={<Nba />} /> */}
             </Routes>
+            <Footer />
           </Router>
         </CssBaseline>
       </ThemeProvider>

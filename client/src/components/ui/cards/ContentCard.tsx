@@ -5,24 +5,18 @@ import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { SvgIconProps } from "@mui/material";
 import { Link } from "react-router-dom";
+import { IContentCardData } from "../../../assets/textContent/homeCardContent";
 
-interface HomeCardProps {
-  SportIcon: (props: SvgIconProps) => JSX.Element;
-  headline: string;
-  body: string;
-  path: string;
-  buttonText: string;
-}
-
-const HomeCard: React.FC<HomeCardProps> = ({
-  SportIcon,
+const ContentCard: React.FC<IContentCardData> = ({
+  Icon,
   headline,
   body,
   path,
   buttonText,
-}: HomeCardProps) => {
+}: IContentCardData) => {
+  const openExternalLink = (externalLink: string) => window.open(externalLink);
+  const isRelativePath = (path: string) => !path.startsWith("https://");
   return (
     <>
       <Card variant="outlined" sx={{ m: 1 }}>
@@ -31,7 +25,7 @@ const HomeCard: React.FC<HomeCardProps> = ({
             {headline}
           </Typography>
           <Box>
-            <SportIcon sx={{ fontSize: 150 }}></SportIcon>
+            <Icon sx={{ fontSize: 150 }}></Icon>
           </Box>
           <CardContent>
             <Box>
@@ -40,17 +34,23 @@ const HomeCard: React.FC<HomeCardProps> = ({
               </Typography>
             </Box>
           </CardContent>
-          <Box pb={2}>
-            {buttonText && (
-              <Button component={Link} to={path} variant="contained">
-                {buttonText}
-              </Button>
-            )}
-          </Box>
+          {buttonText && (
+            <Box pb={2}>
+              {isRelativePath(path) ? (
+                <Button component={Link} to={path} variant="contained">
+                  {buttonText}
+                </Button>
+              ) : (
+                <Button onClick={() => openExternalLink(path)} variant="contained">
+                  {buttonText}
+                </Button>
+              )}
+            </Box>
+          )}
         </CardActionArea>
       </Card>
     </>
   );
 };
 
-export default HomeCard;
+export default ContentCard;
