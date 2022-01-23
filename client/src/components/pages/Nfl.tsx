@@ -147,7 +147,7 @@ const Nfl: React.FC = () => {
               {weeks.map(option => {
                 return (
                   <MenuItem key={option} value={option}>
-                    {option}
+                    {removeUnderscores(option)}
                   </MenuItem>
                 );
               })}
