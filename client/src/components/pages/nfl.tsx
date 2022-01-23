@@ -71,7 +71,7 @@ const Nfl: React.FC = () => {
   const getNflScores = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch(`http://localhost:5000/api/nfl-week/${week}`, {
+      const response = await fetch(`/api/nfl-week/${week}`, {
         method: "GET",
       });
       const predictions = await response.json();
