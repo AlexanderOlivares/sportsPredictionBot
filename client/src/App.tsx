@@ -8,7 +8,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { PaletteMode } from "@mui/material";
 import About from "./components/pages/About";
-import Footer from "./components/ui/footer";
+import Footer from "./components/ui/Footer";
 
 function App() {
   const [darkMode, setDarkMode] = useState<PaletteMode>("light");
