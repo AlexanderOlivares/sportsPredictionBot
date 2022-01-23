@@ -9,6 +9,11 @@ const router = express.Router();
 
 app.use(cors());
 app.use(express.json());
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "client/build")));
+}
+
 app.use("/api", router);
 
 router.get("/nfl-week/:week", async (req, res) => {
