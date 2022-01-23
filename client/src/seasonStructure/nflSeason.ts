@@ -19,10 +19,10 @@ export const weeks: string[] = [
   "16",
   "17",
   "18",
-  "Wild Card Playoffs",
-  "Divisional Playoffs",
-  "Conference Championships",
-  "Super Bowl",
+  "wild_card_playoffs",
+  "divisional_playoffs",
+  "conference_championships",
+  "super_bowl",
 ];
 
 export const getCurrentNflWeek = async () => {
