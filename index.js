@@ -18,8 +18,9 @@ app.use("/api", router);
 
 router.get("/nfl-week/:week", async (req, res) => {
   const { week } = req.params;
+  week = week.length <= 2 ? `week_${week}` : week;
   try {
-    let getPredictions = await pool.query(`SELECT * FROM nfl_week_${week}`);
+    let getPredictions = await pool.query(`SELECT * FROM nfl_${week}`);
     res.json(getPredictions.rows);
   } catch (error) {
     console.error(error.message);
