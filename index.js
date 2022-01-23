@@ -17,7 +17,7 @@ if (process.env.NODE_ENV === "production") {
 app.use("/api", router);
 
 router.get("/nfl-week/:week", async (req, res) => {
-  const { week } = req.params;
+  let { week } = req.params;
   week = week.length <= 2 ? `week_${week}` : week;
   try {
     let getPredictions = await pool.query(`SELECT * FROM nfl_${week}`);
