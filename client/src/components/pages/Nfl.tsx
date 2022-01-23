@@ -35,6 +35,7 @@ export interface IFilterOptions {
 }
 
 export const displayTheWordWeek = (week: string) => (Number(week) ? "Week" : "");
+export const removeUnderscores = (week: string) => week.replace(/_/g, " ");
 const scrollToTop = () => window.scrollTo(0, 0);
 const latestWeek: string = weeks[weeks.length - 1];
 
@@ -217,7 +218,7 @@ const Nfl: React.FC = () => {
       {!isLoading && (
         <Box p={3}>
           <Typography variant="h4">
-            NFL {displayTheWordWeek(week)} {week}
+            NFL {displayTheWordWeek(week)} {removeUnderscores(week)}
           </Typography>
         </Box>
       )}
