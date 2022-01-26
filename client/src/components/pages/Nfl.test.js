@@ -18,10 +18,10 @@ test("removeUnderscores", () => {
   expect(removeUnderscores("18")).toEqual("18");
   expect(removeUnderscores("1")).toEqual("1");
 
-  expect(removeUnderscores("super_bowl")).toEqual("super bowl");
-  expect(removeUnderscores("divisional_playoffs")).toEqual("divisional playoffs");
-  expect(removeUnderscores("wild_card_playoffs")).toEqual("wild card playoffs");
+  expect(removeUnderscores("super_bowl")).toEqual("Super Bowl");
+  expect(removeUnderscores("divisional_playoffs")).toEqual("Divisional Playoffs");
+  expect(removeUnderscores("wild_card_playoffs")).toEqual("Wild Card Playoffs");
   expect(removeUnderscores("conference_championships")).toEqual(
-    "conference championships"
+    "Conference Championships"
   );
 });

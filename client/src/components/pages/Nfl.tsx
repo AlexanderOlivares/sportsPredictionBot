@@ -35,7 +35,12 @@ export interface IFilterOptions {
 }
 
 export const displayTheWordWeek = (week: string) => (Number(week) ? "Week" : "");
-export const removeUnderscores = (week: string) => week.replace(/_/g, " ");
+export const removeUnderscores = (week: string) =>
+  week
+    .replace(/_/g, " ")
+    .split(" ")
+    .map(word => word[0].toUpperCase() + word.slice(1))
+    .join(" ");
 const scrollToTop = () => window.scrollTo(0, 0);
 const latestWeek: string = weeks[weeks.length - 1];
 
