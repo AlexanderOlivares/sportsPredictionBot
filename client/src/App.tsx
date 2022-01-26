@@ -6,8 +6,6 @@ import AppBar from "./components/ui/AppBar";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { PaletteMode } from "@mui/material";
-// import About from "./components/pages/About";
-// import Nfl from "./components/pages/Nfl";
 import Footer from "./components/ui/Footer";
 import Spinner from "./components/ui/Spinner";
 
