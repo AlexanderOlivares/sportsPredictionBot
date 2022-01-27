@@ -7,7 +7,6 @@ import images from "../../../assets/images";
 import theme from "../Theme";
 
 const secondary = theme.palette.secondary.main;
-
 export const makeFortyNinersSF = (team: string) => (team === "49ers" ? "SF" : team);
 
 export const isUnderdogOutrightWinner = (
@@ -39,9 +38,7 @@ interface CardProps {
 
 const NflCard: React.FC<CardProps> = ({ game }) => {
   const [upset, setUpset] = useState<boolean>(false);
-
   const { away_team, home_team }: { away_team: string; home_team: string } = game;
-
   const awayTeam = makeFortyNinersSF(away_team);
   const homeTeam = makeFortyNinersSF(home_team);
 

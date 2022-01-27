@@ -18,6 +18,10 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import GlobalStyles from "../GlobalStyles";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
+import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogTitle from "@mui/material/DialogTitle";
 
 interface IPredictionData {
   away_predicted: string;
@@ -48,15 +52,35 @@ const Nfl: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [year, setYear] = useState<string>("");
   const [week, setWeek] = useState<string>(latestWeek);
-  const [displayedPredictionData, setDisplayedPredictionData] =
-    useState<IPredictionData[]>();
-  const [completePredictionData, setCompletePredictionData] =
-    useState<IPredictionData[]>();
+  const [displayedPredictionData, setDisplayedPredictionData] = useState<
+    IPredictionData[] | null
+  >(null);
+  const [completePredictionData, setCompletePredictionData] = useState<
+    IPredictionData[] | null
+  >(null);
   const [filters, setFilters] = useState<IFilterOptions>({
     favorite: false,
     underdog: false,
   });
   const [open, setOpen] = React.useState(false);
+  const [openFilterMatchDialog, setOpenFilterMatchDialog] = React.useState(true);
+
+  const closeNoFilterMatchDialog = () => setOpenFilterMatchDialog(false);
+
+  const noFilterMatchDialog = () => {
+    setDisplayedPredictionData(completePredictionData);
+    clearFilter();
+    return (
+      <Dialog open={openFilterMatchDialog} onClose={closeNoFilterMatchDialog}>
+        <DialogTitle id="alert-dialog-title">
+          {"No pedictions match this filter"}
+        </DialogTitle>
+        <DialogActions>
+          <Button onClick={closeNoFilterMatchDialog}>Close</Button>
+        </DialogActions>
+      </Dialog>
+    );
+  };
 
   const toggleModal = () => setOpen(prev => !prev);
   const clearFilter = () => setFilters({ favorite: false, underdog: false });
@@ -74,13 +98,18 @@ const Nfl: React.FC = () => {
     return displayedPredictionData;
   };
 
-  const getNflScores = async () => {
+  const getNflPredictions = async () => {
     try {
       setIsLoading(true);
       const response = await fetch(`/api/nfl-week/${week}`, {
         method: "GET",
       });
-      const predictions = await response.json();
+      const predictions: IPredictionData[] = await response.json();
+      if (!Array.isArray(predictions)) {
+        setIsLoading(false);
+        setDisplayedPredictionData(null);
+        return;
+      }
       setCompletePredictionData(predictions);
       setDisplayedPredictionData(filterPredictionResults(predictions, filters));
       setIsLoading(false);
@@ -101,7 +130,7 @@ const Nfl: React.FC = () => {
   };
 
   useEffect(() => {
-    getNflScores();
+    getNflPredictions();
     getCurrentNflWeek()
       .then(week => {
         if (week && weeks.includes(week)) {
@@ -112,7 +141,10 @@ const Nfl: React.FC = () => {
   }, [week]);
 
   useEffect(() => {
-    if (!completePredictionData) return;
+    if (!completePredictionData || !completePredictionData.length) {
+      setIsLoading(false);
+      return;
+    }
     const filtered = filterPredictionResults(completePredictionData, filters);
     setDisplayedPredictionData(filtered);
   }, [filters]);
@@ -160,15 +192,17 @@ const Nfl: React.FC = () => {
           </FormControl>
         </Box>
       </Box>
-      <Box pt={1}>
-        {filters.favorite || filters.underdog ? (
-          <Button onClick={clearFilter}>Clear Filter</Button>
-        ) : (
-          <Button onClick={toggleModal}>
-            <FilterAltOutlinedIcon />
-          </Button>
-        )}
-      </Box>
+      {displayedPredictionData && (
+        <Box pt={1}>
+          {filters.favorite || filters.underdog ? (
+            <Button onClick={clearFilter}>Clear Filter</Button>
+          ) : (
+            <Button onClick={toggleModal}>
+              <FilterAltOutlinedIcon />
+            </Button>
+          )}
+        </Box>
+      )}
       <Box>
         <Modal
           open={open}
@@ -227,7 +261,6 @@ const Nfl: React.FC = () => {
           </Typography>
         </Box>
       )}
-      {isLoading && <Spinner />}
       <Box>
         <Grid
           container
@@ -237,17 +270,29 @@ const Nfl: React.FC = () => {
           alignItems="center"
           direction="row"
         >
-          {displayedPredictionData &&
+          {!displayedPredictionData ? (
+            <Box>
+              <ReportProblemOutlinedIcon sx={{ fontSize: 200 }} />
+            </Box>
+          ) : (
             displayedPredictionData.map((game, index) => {
               return (
                 <Grid item lg={2}>
                   <NflCard key={index} game={game} />
                 </Grid>
               );
-            })}
+            })
+          )}
         </Grid>
       </Box>
-      {!isLoading && (
+      {!displayedPredictionData && (
+        <Typography>Error loading NFl Predictions</Typography>
+      )}
+      {displayedPredictionData &&
+        !displayedPredictionData.length &&
+        noFilterMatchDialog()}
+      {isLoading && <Spinner />}
+      {!isLoading && displayedPredictionData && (
         <IconButton aria-label="scroll to top" onClick={scrollToTop}>
           <ArrowCircleUpIcon />
         </IconButton>

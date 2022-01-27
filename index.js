@@ -17,14 +17,14 @@ if (process.env.NODE_ENV === "production") {
 app.use("/api", router);
 
 router.get("/nfl-week/:week", async (req, res) => {
-  let { week } = req.params;
-  week = week.length <= 2 ? `week_${week}` : week;
+  const { week } = req.params;
+  const currentWeek = week.length <= 2 ? `week_${week}` : week;
   try {
-    let getPredictions = await pool.query(`SELECT * FROM nfl_${week}`);
+    const getPredictions = await pool.query(`SELECT * FROM nfl_${currentWeek}`);
     res.json(getPredictions.rows);
   } catch (error) {
     console.error(error.message);
-    res.send(`No predictions for NFL week "${week}"`);
+    res.json(`Error getting predictions for NFL week "${week}"`);
   }
 });
 
