@@ -21,7 +21,7 @@ export const weeks: string[] = [
   "18",
   "wild_card_playoffs",
   "divisional_playoffs",
-//   "conference_championships",
+  "conference_championships",
 //   "super_bowl",
 ];
 
