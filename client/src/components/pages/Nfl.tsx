@@ -8,8 +8,6 @@ import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import IconButton from "@mui/material/IconButton";
-import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import Grid from "@mui/material/Grid";
 import { getCurrentNflWeek, weeks, years } from "../../seasonStructure/nflSeason";
 import Checkbox from "@mui/material/Checkbox";
@@ -18,10 +16,9 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import GlobalStyles from "../GlobalStyles";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
-import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogTitle from "@mui/material/DialogTitle";
+import FourOhFour from "../ui/404";
+import ScrollToTop from "../helpers/ScrollToTop";
+import PopUpDialog from "../ui/PopUpDialog";
 
 interface IPredictionData {
   away_predicted: string;
@@ -45,7 +42,6 @@ export const removeUnderscores = (week: string) =>
     .split(" ")
     .map(word => word[0].toUpperCase() + word.slice(1))
     .join(" ");
-const scrollToTop = () => window.scrollTo(0, 0);
 const latestWeek: string = weeks[weeks.length - 1];
 
 const Nfl: React.FC = () => {
@@ -62,27 +58,21 @@ const Nfl: React.FC = () => {
     favorite: false,
     underdog: false,
   });
-  const [open, setOpen] = React.useState(false);
-  const [openFilterMatchDialog, setOpenFilterMatchDialog] = React.useState(true);
+  const [openFilterModal, setOpenFilterModal] = React.useState<boolean>(false);
+  const [openPopUpDialog, setOpenPopUpDialog] = React.useState<boolean>(false);
+  const [displayFetchError, setDisplayFetchError] = React.useState<boolean>(false);
+  const message = `No predictions match this filter for ${displayTheWordWeek(
+    week
+  )} ${removeUnderscores(week)}`;
+  const title = `No Results`;
 
-  const closeNoFilterMatchDialog = () => setOpenFilterMatchDialog(false);
-
-  const noFilterMatchDialog = () => {
+  const closePopUpDialog = () => {
     setDisplayedPredictionData(completePredictionData);
     clearFilter();
-    return (
-      <Dialog open={openFilterMatchDialog} onClose={closeNoFilterMatchDialog}>
-        <DialogTitle id="alert-dialog-title">
-          {"No pedictions match this filter"}
-        </DialogTitle>
-        <DialogActions>
-          <Button onClick={closeNoFilterMatchDialog}>Close</Button>
-        </DialogActions>
-      </Dialog>
-    );
+    setOpenPopUpDialog(false);
   };
 
-  const toggleModal = () => setOpen(prev => !prev);
+  const toggleModal = () => setOpenFilterModal(prev => !prev);
   const clearFilter = () => setFilters({ favorite: false, underdog: false });
 
   const filterPredictionResults = (
@@ -108,10 +98,17 @@ const Nfl: React.FC = () => {
       if (!Array.isArray(predictions)) {
         setIsLoading(false);
         setDisplayedPredictionData(null);
+        setDisplayFetchError(true);
         return;
       }
+      setDisplayFetchError(false);
       setCompletePredictionData(predictions);
-      setDisplayedPredictionData(filterPredictionResults(predictions, filters));
+      const filtered = filterPredictionResults(predictions, filters);
+      if (!filtered.length) {
+        setOpenPopUpDialog(true);
+      } else {
+        setDisplayedPredictionData(filterPredictionResults(predictions, filters));
+      }
       setIsLoading(false);
     } catch (error) {
       console.error(error);
@@ -146,6 +143,10 @@ const Nfl: React.FC = () => {
       return;
     }
     const filtered = filterPredictionResults(completePredictionData, filters);
+    if (!filtered.length) {
+      setOpenPopUpDialog(true);
+      return;
+    }
     setDisplayedPredictionData(filtered);
   }, [filters]);
 
@@ -205,7 +206,7 @@ const Nfl: React.FC = () => {
       )}
       <Box>
         <Modal
-          open={open}
+          open={openFilterModal}
           onClose={toggleModal}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
@@ -270,32 +271,26 @@ const Nfl: React.FC = () => {
           alignItems="center"
           direction="row"
         >
-          {!displayedPredictionData ? (
-            <Box>
-              <ReportProblemOutlinedIcon sx={{ fontSize: 200 }} />
-            </Box>
-          ) : (
+          {displayedPredictionData?.length &&
             displayedPredictionData.map((game, index) => {
               return (
                 <Grid item lg={2}>
                   <NflCard key={index} game={game} />
                 </Grid>
               );
-            })
-          )}
+            })}
         </Grid>
       </Box>
-      {!displayedPredictionData && (
-        <Typography>Error loading NFl Predictions</Typography>
-      )}
-      {displayedPredictionData &&
-        !displayedPredictionData.length &&
-        noFilterMatchDialog()}
       {isLoading && <Spinner />}
-      {!isLoading && displayedPredictionData && (
-        <IconButton aria-label="scroll to top" onClick={scrollToTop}>
-          <ArrowCircleUpIcon />
-        </IconButton>
+      {!isLoading && displayFetchError && <FourOhFour />}
+      {!isLoading && displayedPredictionData && <ScrollToTop />}
+      {openPopUpDialog && (
+        <PopUpDialog
+          title={title}
+          message={message}
+          openPopUpDialog={openPopUpDialog}
+          closePopUpDialog={closePopUpDialog}
+        />
       )}
     </>
   );

@@ -7,8 +7,8 @@ const Footer: React.FC = () => {
     <>
       <Box m={2}>
         <Typography variant="caption">
-          Disclaimer: Prediction bot is not a gambling site of any kind. It is
-          intended for enterntainment purposes only.
+          Prediction bot is not a gambling advice. It is intended for enterntainment
+          purposes only.
         </Typography>
       </Box>
     </>
