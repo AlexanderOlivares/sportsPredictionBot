@@ -10,15 +10,11 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Grid from "@mui/material/Grid";
 import { getCurrentNflWeek, weeks, years } from "../../seasonStructure/nflSeason";
-import Checkbox from "@mui/material/Checkbox";
-import Modal from "@mui/material/Modal";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import GlobalStyles from "../GlobalStyles";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import FourOhFour from "../ui/404";
 import ScrollToTop from "../helpers/ScrollToTop";
 import PopUpDialog from "../ui/PopUpDialog";
+import FilterModal from "../ui/FilterModal";
 
 interface IPredictionData {
   away_predicted: string;
@@ -115,12 +111,6 @@ const Nfl: React.FC = () => {
     }
   };
 
-  const handleCheckboxes = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const { name, checked }: { name: string; checked: boolean } = event.target;
-    setFilters(prev => ({ ...prev, [name]: checked }));
-    toggleModal();
-  };
-
   const handleSelectChange = (event: SelectChangeEvent) => {
     const { name, value }: { name: string; value: string } = event.target;
     name === "week" ? setWeek(value) : setYear(value);
@@ -204,57 +194,14 @@ const Nfl: React.FC = () => {
           )}
         </Box>
       )}
-      <Box>
-        <Modal
-          open={openFilterModal}
-          onClose={toggleModal}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={GlobalStyles.nflModal}>
-            <Typography
-              textAlign="center"
-              id="modal-modal-title"
-              variant="h5"
-              component="h2"
-            >
-              Filter By
-            </Typography>
-            <Box display="flex" justifyContent="center" alignItems="center">
-              <FormControl>
-                <Box m={2}>
-                  <FormGroup row={true}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          value={filters.favorite}
-                          onChange={handleCheckboxes}
-                          color="secondary"
-                          name="favorite"
-                        />
-                      }
-                      label="Favorite"
-                      labelPlacement="top"
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          value={filters.underdog}
-                          onChange={handleCheckboxes}
-                          color="secondary"
-                          name="underdog"
-                        />
-                      }
-                      label="Underdog"
-                      labelPlacement="top"
-                    />
-                  </FormGroup>
-                </Box>
-              </FormControl>
-            </Box>
-          </Box>
-        </Modal>
-      </Box>
+      {
+        <FilterModal
+          openFilterModal={openFilterModal}
+          toggleModal={toggleModal}
+          filters={filters}
+          setFilters={setFilters}
+        />
+      }
       {!isLoading && (
         <Box p={3}>
           <Typography variant="h4">

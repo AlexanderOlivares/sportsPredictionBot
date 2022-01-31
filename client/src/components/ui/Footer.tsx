@@ -7,7 +7,7 @@ const Footer: React.FC = () => {
     <>
       <Box m={2}>
         <Typography variant="caption">
-          Prediction bot is not a gambling advice. It is intended for enterntainment
+          Prediction bot is not gambling advice. It is intended for enterntainment
           purposes only.
         </Typography>
       </Box>
