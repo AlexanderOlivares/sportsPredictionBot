@@ -3,18 +3,16 @@ import NflCard from "../ui/cards/NflCard";
 import Spinner from "../ui/Spinner";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { SelectChangeEvent } from "@mui/material/Select";
 import Grid from "@mui/material/Grid";
-import { getCurrentNflWeek, weeks, years } from "../../seasonStructure/nflSeason";
+import { weeks } from "../../seasonStructure/nflSeason";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import FourOhFour from "../ui/404";
 import ScrollToTop from "../helpers/ScrollToTop";
 import PopUpDialog from "../ui/PopUpDialog";
 import FilterModal from "../ui/FilterModal";
+import SelectForm from "../ui/SelectForm";
 
 interface IPredictionData {
   away_predicted: string;
@@ -38,9 +36,10 @@ export const removeUnderscores = (week: string) =>
     .split(" ")
     .map(word => word[0].toUpperCase() + word.slice(1))
     .join(" ");
-const latestWeek: string = weeks[weeks.length - 1];
 
 const Nfl: React.FC = () => {
+  const latestWeek: string = weeks[weeks.length - 1];
+  const title = `No Results`;
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [year, setYear] = useState<string>("");
   const [week, setWeek] = useState<string>(latestWeek);
@@ -60,7 +59,6 @@ const Nfl: React.FC = () => {
   const message = `No predictions match this filter for ${displayTheWordWeek(
     week
   )} ${removeUnderscores(week)}`;
-  const title = `No Results`;
 
   const closePopUpDialog = () => {
     setDisplayedPredictionData(completePredictionData);
@@ -118,13 +116,6 @@ const Nfl: React.FC = () => {
 
   useEffect(() => {
     getNflPredictions();
-    getCurrentNflWeek()
-      .then(week => {
-        if (week && weeks.includes(week)) {
-          setWeek(week);
-        }
-      })
-      .catch(console.log);
   }, [week]);
 
   useEffect(() => {
@@ -143,45 +134,13 @@ const Nfl: React.FC = () => {
   return (
     <>
       <Box pt={2} className="nfl" justifyContent="center" alignItems="center">
-        {/* <Box className="form-select">
-          <FormControl fullWidth>
-            <InputLabel id="select-nfl-year">Year</InputLabel>
-            <Select
-              value={year}
-              label={"year"}
-              name="year"
-              onChange={handleSelectChange}
-            >
-              {years.map(option => {
-                return (
-                  <MenuItem key={option} value={option}>
-                    {option}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </FormControl>
-        </Box> */}
-        <Box className="form-select">
-          <FormControl fullWidth>
-            <InputLabel id="select-nfl-week">Week</InputLabel>
-            <Select
-              value={week}
-              label={"week"}
-              name="week"
-              onChange={handleSelectChange}
-              MenuProps={{ sx: { maxHeight: 500 } }}
-            >
-              {weeks.map(option => {
-                return (
-                  <MenuItem key={option} value={option}>
-                    {removeUnderscores(option)}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </FormControl>
-        </Box>
+        {/* SelectForm for years goes here for season 2 */}
+        <SelectForm
+          label={"week"}
+          value={week}
+          timeRange={weeks}
+          handleSelectChange={handleSelectChange}
+        />
       </Box>
       {displayedPredictionData && (
         <Box pt={1}>
