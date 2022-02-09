@@ -28,6 +28,20 @@ router.get("/nfl-week/:week", async (req, res) => {
   }
 });
 
+router.get("/nba-date/:year/:date", async (req, res) => {
+  const { year, date } = req.params;
+  try {
+    const getPredictions = await pool.query(
+      `SELECT * FROM nba_${year} WHERE game_date = ($1)`,
+      [date]
+    );
+    res.json(getPredictions.rows);
+  } catch (error) {
+    console.error(error.message);
+    res.json(`Error getting NBA predictions`);
+  }
+});
+
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client/build/index.html"));
 });
