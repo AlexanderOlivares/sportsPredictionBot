@@ -14,7 +14,8 @@ import PopUpDialog from "../ui/PopUpDialog";
 import FilterModal from "../ui/FilterModal";
 import SelectForm from "../ui/SelectForm";
 
-interface IPredictionData {
+export interface IPredictionData {
+  game_date: string;
   away_predicted: string;
   away_team: string;
   favored_team: string;
@@ -37,9 +38,21 @@ export const removeUnderscores = (week: string) =>
     .map(word => word[0].toUpperCase() + word.slice(1))
     .join(" ");
 
+export const filterPredictionResults = (
+  displayedPredictionData: IPredictionData[],
+  filters: IFilterOptions
+) => {
+  if (filters.favorite) {
+    return displayedPredictionData.filter(game => game.pick.includes("-"));
+  }
+  if (filters.underdog) {
+    return displayedPredictionData.filter(game => game.pick.includes("+"));
+  }
+  return displayedPredictionData;
+};
+
 const Nfl: React.FC = () => {
   const latestWeek: string = weeks[weeks.length - 1];
-  const title = `No Results`;
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [year, setYear] = useState<string>("");
   const [week, setWeek] = useState<string>(latestWeek);
@@ -53,9 +66,9 @@ const Nfl: React.FC = () => {
     favorite: false,
     underdog: false,
   });
-  const [openFilterModal, setOpenFilterModal] = React.useState<boolean>(false);
-  const [openPopUpDialog, setOpenPopUpDialog] = React.useState<boolean>(false);
-  const [displayFetchError, setDisplayFetchError] = React.useState<boolean>(false);
+  const [openFilterModal, setOpenFilterModal] = useState<boolean>(false);
+  const [openPopUpDialog, setOpenPopUpDialog] = useState<boolean>(false);
+  const [displayFetchError, setDisplayFetchError] = useState<boolean>(false);
   const message = `No predictions match this filter for ${displayTheWordWeek(
     week
   )} ${removeUnderscores(week)}`;
@@ -192,7 +205,6 @@ const Nfl: React.FC = () => {
       {!isLoading && displayedPredictionData && <ScrollToTop />}
       {openPopUpDialog && (
         <PopUpDialog
-          title={title}
           message={message}
           openPopUpDialog={openPopUpDialog}
           closePopUpDialog={closePopUpDialog}
