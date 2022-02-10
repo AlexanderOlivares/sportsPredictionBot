@@ -1,4 +1,4 @@
-import { makeFortyNinersSF, isUnderdogOutrightWinner } from "./NflCard";
+import { makeFortyNinersSF, isUnderdogOutrightWinner } from "./GameCard";
 
 test("makeFortyNinersSF", () => {
   expect(makeFortyNinersSF("49ers")).toEqual("SF");

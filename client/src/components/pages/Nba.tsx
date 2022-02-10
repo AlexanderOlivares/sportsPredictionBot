@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import DatePicker from "../ui/GameDatePicker";
-import NflCard from "../ui/cards/NflCard";
 import Spinner from "../ui/Spinner";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import FourOhFour from "../ui/404";
 import ScrollToTop from "../helpers/ScrollToTop";
 import PopUpDialog from "../ui/PopUpDialog";
 import FilterModal from "../ui/FilterModal";
-import { IFilterOptions, IPredictionData, filterPredictionResults } from "./Nfl";
+import Scoreboard from "../ui/ScoreBoard";
+import {
+  IFilterOptions,
+  IPredictionData,
+  filterPredictionResults,
+  toggleModal,
+  clearFilter,
+} from "./Nfl";
 
 const Nba: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -31,12 +36,9 @@ const Nba: React.FC = () => {
   const [openFilterModal, setOpenFilterModal] = useState<boolean>(false);
   const message = `No predictions match this filter for ${gameDate}`;
 
-  const toggleModal = () => setOpenFilterModal(prev => !prev);
-  const clearFilter = () => setFilters({ favorite: false, underdog: false });
-
   const closePopUpDialog = () => {
     setDisplayedPredictionData(completePredictionData);
-    clearFilter();
+    clearFilter(setFilters);
     setOpenPopUpDialog(false);
   };
 
@@ -48,7 +50,6 @@ const Nba: React.FC = () => {
         method: "GET",
       });
       const predictions: IPredictionData[] = await response.json();
-      console.log(predictions);
       if (!Array.isArray(predictions)) {
         setIsLoading(false);
         setDisplayedPredictionData(null);
@@ -94,9 +95,9 @@ const Nba: React.FC = () => {
       {displayedPredictionData && (
         <Box pt={1}>
           {filters.favorite || filters.underdog ? (
-            <Button onClick={clearFilter}>Clear Filter</Button>
+            <Button onClick={() => clearFilter(setFilters)}>Clear Filter</Button>
           ) : (
-            <Button onClick={toggleModal}>
+            <Button onClick={() => toggleModal(setOpenFilterModal)}>
               <FilterAltOutlinedIcon />
             </Button>
           )}
@@ -105,7 +106,7 @@ const Nba: React.FC = () => {
       {
         <FilterModal
           openFilterModal={openFilterModal}
-          toggleModal={toggleModal}
+          toggleModal={() => toggleModal(setOpenFilterModal)}
           filters={filters}
           setFilters={setFilters}
         />
@@ -115,25 +116,7 @@ const Nba: React.FC = () => {
           <Typography variant="h4">NBA</Typography>
         </Box>
       )}
-      <Box>
-        <Grid
-          container
-          spacing={{ xs: 2, md: 3 }}
-          columns={{ xs: 4, sm: 8, md: 12 }}
-          justifyContent="center"
-          alignItems="center"
-          direction="row"
-        >
-          {displayedPredictionData?.length &&
-            displayedPredictionData.map((game, index) => {
-              return (
-                <Grid item lg={2}>
-                  <NflCard key={index} game={game} />
-                </Grid>
-              );
-            })}
-        </Grid>
-      </Box>
+      <Scoreboard displayedPredictionData={displayedPredictionData} />
       {isLoading && <Spinner />}
       {!isLoading && displayFetchError && <FourOhFour />}
       {!isLoading && displayedPredictionData && <ScrollToTop />}

@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import NflCard from "../ui/cards/NflCard";
 import Spinner from "../ui/Spinner";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { SelectChangeEvent } from "@mui/material/Select";
-import Grid from "@mui/material/Grid";
 import { weeks } from "../../seasonStructure/nflSeason";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import FourOhFour from "../ui/404";
@@ -13,6 +11,7 @@ import ScrollToTop from "../helpers/ScrollToTop";
 import PopUpDialog from "../ui/PopUpDialog";
 import FilterModal from "../ui/FilterModal";
 import SelectForm from "../ui/SelectForm";
+import Scoreboard from "../ui/ScoreBoard";
 
 export interface IPredictionData {
   game_date: string;
@@ -51,6 +50,14 @@ export const filterPredictionResults = (
   return displayedPredictionData;
 };
 
+export const toggleModal = (
+  setOpenFilterModal: React.Dispatch<React.SetStateAction<boolean>>
+) => setOpenFilterModal(prev => !prev);
+
+export const clearFilter = (
+  setFilters: React.Dispatch<React.SetStateAction<IFilterOptions>>
+) => setFilters({ favorite: false, underdog: false });
+
 const Nfl: React.FC = () => {
   const latestWeek: string = weeks[weeks.length - 1];
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -75,24 +82,8 @@ const Nfl: React.FC = () => {
 
   const closePopUpDialog = () => {
     setDisplayedPredictionData(completePredictionData);
-    clearFilter();
+    clearFilter(setFilters);
     setOpenPopUpDialog(false);
-  };
-
-  const toggleModal = () => setOpenFilterModal(prev => !prev);
-  const clearFilter = () => setFilters({ favorite: false, underdog: false });
-
-  const filterPredictionResults = (
-    displayedPredictionData: IPredictionData[],
-    filters: IFilterOptions
-  ) => {
-    if (filters.favorite) {
-      return displayedPredictionData.filter(game => game.pick.includes("-"));
-    }
-    if (filters.underdog) {
-      return displayedPredictionData.filter(game => game.pick.includes("+"));
-    }
-    return displayedPredictionData;
   };
 
   const getNflPredictions = async () => {
@@ -158,9 +149,9 @@ const Nfl: React.FC = () => {
       {displayedPredictionData && (
         <Box pt={1}>
           {filters.favorite || filters.underdog ? (
-            <Button onClick={clearFilter}>Clear Filter</Button>
+            <Button onClick={() => clearFilter(setFilters)}>Clear Filter</Button>
           ) : (
-            <Button onClick={toggleModal}>
+            <Button onClick={() => toggleModal(setOpenFilterModal)}>
               <FilterAltOutlinedIcon />
             </Button>
           )}
@@ -169,7 +160,7 @@ const Nfl: React.FC = () => {
       {
         <FilterModal
           openFilterModal={openFilterModal}
-          toggleModal={toggleModal}
+          toggleModal={() => toggleModal(setOpenFilterModal)}
           filters={filters}
           setFilters={setFilters}
         />
@@ -181,25 +172,7 @@ const Nfl: React.FC = () => {
           </Typography>
         </Box>
       )}
-      <Box>
-        <Grid
-          container
-          spacing={{ xs: 2, md: 3 }}
-          columns={{ xs: 4, sm: 8, md: 12 }}
-          justifyContent="center"
-          alignItems="center"
-          direction="row"
-        >
-          {displayedPredictionData?.length &&
-            displayedPredictionData.map((game, index) => {
-              return (
-                <Grid item lg={2}>
-                  <NflCard key={index} game={game} />
-                </Grid>
-              );
-            })}
-        </Grid>
-      </Box>
+      <Scoreboard displayedPredictionData={displayedPredictionData} />
       {isLoading && <Spinner />}
       {!isLoading && displayFetchError && <FourOhFour />}
       {!isLoading && displayedPredictionData && <ScrollToTop />}
