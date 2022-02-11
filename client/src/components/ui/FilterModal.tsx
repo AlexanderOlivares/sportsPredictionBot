@@ -7,7 +7,7 @@ import Modal from "@mui/material/Modal";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import GlobalStyles from "../GlobalStyles";
-import { IFilterOptions } from "../pages/Nfl";
+import { IFilterOptions } from "../helpers/UseFilters";
 
 interface IFilterModalProps {
   openFilterModal: boolean;

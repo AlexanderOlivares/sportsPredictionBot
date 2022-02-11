@@ -6,14 +6,12 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Button from "@mui/material/Button";
 
 interface IPopUpDialogProps {
-  title: string;
   message: string;
   openPopUpDialog: boolean;
   closePopUpDialog: () => void;
 }
 
 const PopUpDialog: React.FC<IPopUpDialogProps> = ({
-  title,
   message,
   openPopUpDialog,
   closePopUpDialog,
@@ -21,7 +19,7 @@ const PopUpDialog: React.FC<IPopUpDialogProps> = ({
   return (
     <>
       <Dialog open={openPopUpDialog} onClose={closePopUpDialog}>
-        <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"No Results"}</DialogTitle>
         <DialogContent id="alert-dialog-title">{message}</DialogContent>
         <DialogActions>
           <Button onClick={closePopUpDialog}>Close</Button>

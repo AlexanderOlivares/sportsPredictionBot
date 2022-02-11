@@ -7,7 +7,11 @@ import images from "../../../assets/images";
 import theme from "../Theme";
 
 const secondary = theme.palette.secondary.main;
-export const makeFortyNinersSF = (team: string) => (team === "49ers" ? "SF" : team);
+export const changeTeamDisplayName = (team: string) => {
+  if (team === "Timberwolves") return "T-Wolves";
+  if (team === "49ers") return "SF";
+  return team;
+};
 
 export const isUnderdogOutrightWinner = (
   home: string,
@@ -36,18 +40,19 @@ interface CardProps {
   };
 }
 
-const NflCard: React.FC<CardProps> = ({ game }) => {
+const GameCard: React.FC<CardProps> = ({ game }) => {
   const [upset, setUpset] = useState<boolean>(false);
   const { away_team, home_team }: { away_team: string; home_team: string } = game;
-  const awayTeam = makeFortyNinersSF(away_team);
-  const homeTeam = makeFortyNinersSF(home_team);
+  const awayTeam = changeTeamDisplayName(away_team);
+  const homeTeam = changeTeamDisplayName(home_team);
+  const [pick, spread] = game.pick.split(" ");
 
   useEffect(() => {
     const isUpset = isUnderdogOutrightWinner(
       homeTeam,
       game.home_predicted,
       game.away_predicted,
-      makeFortyNinersSF(game.favored_team)
+      changeTeamDisplayName(game.favored_team)
     );
     setUpset(isUpset);
   }, [game]);
@@ -68,11 +73,11 @@ const NflCard: React.FC<CardProps> = ({ game }) => {
               <Typography variant="body1">Away</Typography>
               <Box className="nfl-logo-container">
                 <Box className="nfl-logo">
-                  <img src={images[awayTeam]} alt={`${game.away_team} logo`} />
+                  <img src={images[game.away_team]} alt={`${game.away_team} logo`} />
                 </Box>
               </Box>
               <Typography variant="h5" component="div">
-                {game.away_team}
+                {awayTeam}
               </Typography>
               <Typography sx={{ mt: 1.5 }} color="text.secondary">
                 Predicted
@@ -88,7 +93,7 @@ const NflCard: React.FC<CardProps> = ({ game }) => {
                 </Box>
                 <Box>
                   <Typography variant="body1">
-                    {game.favored_team} -{game.vegas_line}
+                    {changeTeamDisplayName(game.favored_team)} -{game.vegas_line}
                   </Typography>
                 </Box>
               </Box>
@@ -102,11 +107,11 @@ const NflCard: React.FC<CardProps> = ({ game }) => {
               <Typography variant="body1">Home</Typography>
               <Box className="nfl-logo-container">
                 <Box className="nfl-logo">
-                  <img src={images[homeTeam]} alt={`${game.home_team} logo`} />
+                  <img src={images[game.home_team]} alt={`${game.home_team} logo`} />
                 </Box>
               </Box>
               <Typography variant="h5" component="div">
-                {game.home_team}
+                {homeTeam}
               </Typography>
               <Typography sx={{ mt: 1.5 }} color="text.secondary">
                 Predicted
@@ -119,7 +124,8 @@ const NflCard: React.FC<CardProps> = ({ game }) => {
           <Box className="pick">
             <Typography variant="body2">Pick</Typography>
             <Typography variant="h5" component="div">
-              {game.pick}
+              {`${changeTeamDisplayName(pick)} `}
+              {spread && spread}
             </Typography>
           </Box>
           {upset && (
@@ -133,4 +139,4 @@ const NflCard: React.FC<CardProps> = ({ game }) => {
   );
 };
 
-export default NflCard;
+export default GameCard;
