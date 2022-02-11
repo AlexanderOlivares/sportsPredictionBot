@@ -16,23 +16,23 @@ export const HomeCardData: IContentCardData[] = [
   {
     Icon: SmartToyOutlinedIcon,
     headline: "Prediction Bot",
-    body: "Prediction bot is an automated tool that scrapes predicted scores from the web and makes picks based on the Vegas betting line",
+    body: "Prediction Bot is an automated tool that scrapes predicted sports scores from the web and makes picks based on the Vegas betting line",
     path: "/about",
     buttonText: "Learn More",
   },
   {
     Icon: SportsFootballOutlinedIcon,
     headline: "NFL Predictions",
-    body: "Prediction bot is 7-5 straight up on picks during the NFL Playoffs",
+    body: "Bengals or Rams? Checkout PB's Super Bowl prediction",
     path: "/nfl",
     buttonText: "View NFL Predctions",
   },
   {
     Icon: SportsBasketballOutlinedIcon,
     headline: "NBA Predictions",
-    body: "NBA bot is currently in development",
+    body: "NBA Bot is now live!",
     path: "/nba",
-    buttonText: "",
+    buttonText: "View NBA Predctions",
   },
   {
     Icon: SportsBaseballOutlinedIcon,

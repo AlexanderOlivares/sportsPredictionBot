@@ -11,12 +11,12 @@ const sports: {
   {
     sport: "NFL",
     icon: SportsFootballOutlinedIcon,
-    text: "",
+    text: "Picks",
   },
   {
     sport: "NBA",
     icon: SportsBasketballOutlinedIcon,
-    text: "(Coming Soon)",
+    text: "Picks",
   },
   {
     sport: "MLB",
