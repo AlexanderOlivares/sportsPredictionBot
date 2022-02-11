@@ -1,12 +1,19 @@
-import { makeFortyNinersSF, isUnderdogOutrightWinner } from "./GameCard";
+import { changeTeamDisplayName, isUnderdogOutrightWinner } from "./GameCard";
 
 test("makeFortyNinersSF", () => {
-  expect(makeFortyNinersSF("49ers")).toEqual("SF");
-  expect(makeFortyNinersSF("Cowboys")).toEqual("Cowboys");
-  expect(makeFortyNinersSF("Buccaneers")).toEqual("Buccaneers");
-  expect(makeFortyNinersSF("Titans")).toEqual("Titans");
-  expect(makeFortyNinersSF("Team")).toEqual("Team");
-  expect(makeFortyNinersSF("Bears")).not.toEqual("SF");
+  expect(changeTeamDisplayName("49ers")).toEqual("SF");
+  expect(changeTeamDisplayName("Cowboys")).toEqual("Cowboys");
+  expect(changeTeamDisplayName("Buccaneers")).toEqual("Buccaneers");
+  expect(changeTeamDisplayName("Titans")).toEqual("Titans");
+  expect(changeTeamDisplayName("Team")).toEqual("Team");
+  expect(changeTeamDisplayName("Bears")).not.toEqual("SF");
+
+  expect(changeTeamDisplayName("Timberwolves")).toEqual("T-Wolves");
+  expect(changeTeamDisplayName("Celtics")).not.toEqual("T-Wolves");
+  expect(changeTeamDisplayName("Sixers")).not.toEqual("T-Wolves");
+  expect(changeTeamDisplayName("Suns")).not.toEqual("T-Wolves");
+  expect(changeTeamDisplayName("Spurs")).not.toEqual("T-Wolves");
+  expect(changeTeamDisplayName("Knicks")).not.toEqual("T-Wolves");
 });
 
 test("isUnderdogOutrightWinner", () => {

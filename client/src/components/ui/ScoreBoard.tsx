@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import GameCard from "../ui/cards/GameCard";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import { IPredictionData } from "../pages/Nfl";
-import { BindingOrAssignmentElementRestIndicator } from "typescript";
+import { IPredictionData } from "../helpers/UseFilters";
 
 interface IScoreboardProps {
   displayedPredictionData: IPredictionData[] | null;
@@ -31,7 +30,6 @@ const Scoreboard: React.FC<IScoreboardProps> = ({ displayedPredictionData }) => 
             })}
         </Grid>
       </Box>
-      ;
     </>
   );
 };
