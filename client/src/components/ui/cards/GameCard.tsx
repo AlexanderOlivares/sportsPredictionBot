@@ -5,6 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import images from "../../../assets/images";
 import theme from "../Theme";
+import useTheme from "@mui/material/styles/useTheme";
 
 const secondary = theme.palette.secondary.main;
 export const changeTeamDisplayName = (team: string): string => {
@@ -12,9 +13,34 @@ export const changeTeamDisplayName = (team: string): string => {
   return team;
 };
 
-export const handleNameOutliers = (team: string): string => {
+export const handleNameOutliers = (team: string, isDarkMode: boolean): string => {
+  if (team === "T-Wolves") return "Timberwolves";
   if (team === "49ers") return "SF";
-  return team === "T-Wolves" ? "Timberwolves" : team;
+  if (isDarkMode) {
+    switch (team) {
+      case "Nets":
+        return "NetsAlt";
+      case "Bulls":
+        return "BullsAlt";
+      case "Clippers":
+        return "ClippersAlt";
+      case "Grizzlies":
+        return "GrizzliesAlt";
+      case "Heat":
+        return "HeatAlt";
+      case "Thunder":
+        return "ThunderAlt";
+      case "Magic":
+        return "MagicAlt";
+      case "Blazers":
+        return "BlazersAlt";
+      case "Spurs":
+        return "SpursAlt";
+      default:
+        return team;
+    }
+  }
+  return team;
 };
 
 export const isUnderdogOutrightWinner = (
@@ -45,12 +71,13 @@ interface CardProps {
 }
 
 const GameCard: React.FC<CardProps> = ({ game }) => {
+  const isDarkMode = useTheme().palette.mode === "dark";
   const [upset, setUpset] = useState<boolean>(false);
   const { away_team, home_team }: { away_team: string; home_team: string } = game;
   const awayTeam: string = changeTeamDisplayName(away_team);
   const homeTeam: string = changeTeamDisplayName(home_team);
-  const awayLogo: string = handleNameOutliers(awayTeam);
-  const homeLogo: string = handleNameOutliers(homeTeam);
+  const awayLogo: string = handleNameOutliers(awayTeam, isDarkMode);
+  const homeLogo: string = handleNameOutliers(homeTeam, isDarkMode);
   const [pick, spread] = game.pick.split(" ");
 
   useEffect(() => {

@@ -34,8 +34,10 @@ import SF from "./logos/nfl/49ers.png";
 import Hawks from "./logos/nba/Hawks.png";
 import Celtics from "./logos/nba/Celtics.png";
 import Nets from "./logos/nba/Nets.png";
+import NetsAlt from "./logos/nba/NetsAlt.png";
 import Hornets from "./logos/nba/Hornets.png";
 import Bulls from "./logos/nba/Bulls.png";
+import BullsAlt from "./logos/nba/BullsAlt.png";
 import Cavaliers from "./logos/nba/Cavaliers.png";
 import Mavericks from "./logos/nba/Mavericks.png";
 import Nuggets from "./logos/nba/Nuggets.png";
@@ -44,20 +46,27 @@ import Warriors from "./logos/nba/Warriors.png";
 import Rockets from "./logos/nba/Rockets.png";
 import Pacers from "./logos/nba/Pacers.png";
 import Clippers from "./logos/nba/Clippers.png";
+import ClippersAlt from "./logos/nba/ClippersAlt.png";
 import Lakers from "./logos/nba/Lakers.png";
 import Grizzlies from "./logos/nba/Grizzlies.png";
+import GrizzliesAlt from "./logos/nba/GrizzliesAlt.png";
 import Heat from "./logos/nba/Heat.png";
+import HeatAlt from "./logos/nba/HeatAlt.png";
 import Bucks from "./logos/nba/Bucks.png";
 import Timberwolves from "./logos/nba/Timberwolves.png";
 import Pelicans from "./logos/nba/Pelicans.png";
 import Knicks from "./logos/nba/Knicks.png";
 import Thunder from "./logos/nba/Thunder.png";
+import ThunderAlt from "./logos/nba/ThunderAlt.png";
 import Magic from "./logos/nba/Magic.png";
+import MagicAlt from "./logos/nba/MagicAlt.png";
 import Sixers from "./logos/nba/Sixers.png";
 import Suns from "./logos/nba/Suns.png";
 import Blazers from "./logos/nba/Blazers.png";
+import BlazersAlt from "./logos/nba/BlazersAlt.png";
 import Kings from "./logos/nba/Kings.png";
 import Spurs from "./logos/nba/Spurs.png";
+import SpursAlt from "./logos/nba/SpursAlt.png";
 import Raptors from "./logos/nba/Raptors.png";
 import Jazz from "./logos/nba/Jazz.png";
 import Wizards from "./logos/nba/Wizards.png";
@@ -99,8 +108,10 @@ const images: { [char: string]: string } = {
   Hawks,
   Celtics,
   Nets,
+  NetsAlt,
   Hornets,
   Bulls,
+  BullsAlt,
   Cavaliers,
   Mavericks,
   Nuggets,
@@ -109,20 +120,27 @@ const images: { [char: string]: string } = {
   Rockets,
   Pacers,
   Clippers,
+  ClippersAlt,
   Lakers,
   Grizzlies,
+  GrizzliesAlt,
   Heat,
+  HeatAlt,
   Bucks,
   Timberwolves,
   Pelicans,
   Knicks,
   Thunder,
+  ThunderAlt,
   Magic,
+  MagicAlt,
   Sixers,
   Suns,
   Blazers,
+  BlazersAlt,
   Kings,
   Spurs,
+  SpursAlt,
   Raptors,
   Jazz,
   Wizards,
