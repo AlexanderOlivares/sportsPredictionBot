@@ -16,19 +16,6 @@ export interface IFilterOptions {
   underdog: Boolean;
 }
 
-export const filterPredictionResults = (
-  displayedPredictionData: IPredictionData[],
-  filters: IFilterOptions
-) => {
-  if (filters.favorite) {
-    return displayedPredictionData.filter(game => game.pick.includes("-"));
-  }
-  if (filters.underdog) {
-    return displayedPredictionData.filter(game => game.pick.includes("+"));
-  }
-  return displayedPredictionData;
-};
-
 export const toggleModal = (
   setOpenFilterModal: React.Dispatch<React.SetStateAction<boolean>>
 ) => setOpenFilterModal(prev => !prev);
@@ -53,6 +40,19 @@ const useFilters = () => {
     underdog: false,
   });
 
+  const filterPredictionResults = (
+    displayedPredictionData: IPredictionData[],
+    filters: IFilterOptions
+  ) => {
+    if (filters.favorite) {
+      return displayedPredictionData.filter(game => game.pick.includes("-"));
+    }
+    if (filters.underdog) {
+      return displayedPredictionData.filter(game => game.pick.includes("+"));
+    }
+    return displayedPredictionData;
+  };
+
   const closePopUpDialog = () => {
     setDisplayedPredictionData(completePredictionData);
     clearFilter(setFilters);
@@ -64,10 +64,10 @@ const useFilters = () => {
       setIsLoading(true);
       const response = await fetch(url, { method: "GET" });
       const predictions: IPredictionData[] = await response.json();
-      if (!Array.isArray(predictions)) {
-        setIsLoading(false);
+      if (!Array.isArray(predictions) || !predictions?.length) {
         setDisplayedPredictionData(null);
         setDisplayFetchError(true);
+        setIsLoading(false);
         return;
       }
       setDisplayFetchError(false);

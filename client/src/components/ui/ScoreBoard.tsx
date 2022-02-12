@@ -23,7 +23,7 @@ const Scoreboard: React.FC<IScoreboardProps> = ({ displayedPredictionData }) => 
           {displayedPredictionData?.length &&
             displayedPredictionData.map((game, index) => {
               return (
-                <Grid item lg={2}>
+                <Grid item lg={2} key={index}>
                   <GameCard key={index} game={game} />
                 </Grid>
               );

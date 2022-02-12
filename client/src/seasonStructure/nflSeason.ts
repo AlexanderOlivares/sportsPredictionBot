@@ -22,7 +22,7 @@ export const weeks: string[] = [
   "wild_card_playoffs",
   "divisional_playoffs",
   "conference_championships",
-//   "super_bowl",
+  "super_bowl",
 ];
 
 export const getCurrentNflWeek = async () => {

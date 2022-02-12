@@ -14,7 +14,7 @@ export const AboutCardData: IContentCardData[] = [
   {
     Icon: GitHubIcon,
     headline: "View On GitHub",
-    body: "For a more detailed explanation of the raw prediction data see the readme on GitHub. To run on your local machine, clone the scraper-only branch",
+    body: "For a more detailed explanation of the raw prediction data see the readme on GitHub",
     path: "https://github.com/AlexanderOlivares/nfl-prediction-bot",
     buttonText: "See source code",
   },

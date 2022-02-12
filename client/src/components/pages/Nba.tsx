@@ -30,7 +30,8 @@ const Nba: React.FC = () => {
   } = useFilters();
 
   useEffect(() => {
-    const [date, year] = gameDate.split(/(?<=\d)\s/);
+    const [month, day, year] = gameDate.split(" ");
+    const date = `${month} ${day}`;
     fetchGamePredictions(`/api/nba-date/${year}/${date}`);
   }, [gameDate]);
 

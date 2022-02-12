@@ -1,14 +1,12 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
-import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
+import EventBusyOutlinedIcon from "@mui/icons-material/EventBusyOutlined";
 
 const FourOhFour = () => {
   return (
     <>
-      <ReportProblemOutlinedIcon sx={{ fontSize: 300 }} />
-      <Typography>
-        Flag on the play! There was an error loading this page.
-      </Typography>
+      <EventBusyOutlinedIcon sx={{ fontSize: 300 }} />
+      <Typography>No predictions found for this date </Typography>
     </>
   );
 };
