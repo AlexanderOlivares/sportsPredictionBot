@@ -7,10 +7,14 @@ import images from "../../../assets/images";
 import theme from "../Theme";
 
 const secondary = theme.palette.secondary.main;
-export const changeTeamDisplayName = (team: string) => {
+export const changeTeamDisplayName = (team: string): string => {
   if (team === "Timberwolves") return "T-Wolves";
-  if (team === "49ers") return "SF";
   return team;
+};
+
+export const handleNameOutliers = (team: string): string => {
+  if (team === "49ers") return "SF";
+  return team === "T-Wolves" ? "Timberwolves" : team;
 };
 
 export const isUnderdogOutrightWinner = (
@@ -43,8 +47,10 @@ interface CardProps {
 const GameCard: React.FC<CardProps> = ({ game }) => {
   const [upset, setUpset] = useState<boolean>(false);
   const { away_team, home_team }: { away_team: string; home_team: string } = game;
-  const awayTeam = changeTeamDisplayName(away_team);
-  const homeTeam = changeTeamDisplayName(home_team);
+  const awayTeam: string = changeTeamDisplayName(away_team);
+  const homeTeam: string = changeTeamDisplayName(home_team);
+  const awayLogo: string = handleNameOutliers(awayTeam);
+  const homeLogo: string = handleNameOutliers(homeTeam);
   const [pick, spread] = game.pick.split(" ");
 
   useEffect(() => {
@@ -73,7 +79,8 @@ const GameCard: React.FC<CardProps> = ({ game }) => {
               <Typography variant="body1">Away</Typography>
               <Box className="nfl-logo-container">
                 <Box className="nfl-logo">
-                  <img src={images[game.away_team]} alt={`${game.away_team} logo`} />
+                  {/* <img src={images[game.away_team]} alt={`${game.away_team} logo`} /> */}
+                  <img src={images[awayLogo]} alt={`${game.away_team} logo`} />
                 </Box>
               </Box>
               <Typography variant="h5" component="div">
@@ -107,7 +114,8 @@ const GameCard: React.FC<CardProps> = ({ game }) => {
               <Typography variant="body1">Home</Typography>
               <Box className="nfl-logo-container">
                 <Box className="nfl-logo">
-                  <img src={images[game.home_team]} alt={`${game.home_team} logo`} />
+                  {/* <img src={images[game.home_team]} alt={`${game.home_team} logo`} /> */}
+                  <img src={images[homeLogo]} alt={`${game.home_team} logo`} />
                 </Box>
               </Box>
               <Typography variant="h5" component="div">

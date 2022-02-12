@@ -1,14 +1,36 @@
-import { changeTeamDisplayName, isUnderdogOutrightWinner } from "./GameCard";
+import {
+  changeTeamDisplayName,
+  handleNameOutliers,
+  isUnderdogOutrightWinner,
+} from "./GameCard";
 
-test("makeFortyNinersSF", () => {
-  expect(changeTeamDisplayName("49ers")).toEqual("SF");
+test("Change 49ers to SF and T-Wolves to Timberwolves", () => {
+  expect(handleNameOutliers("49ers")).toEqual("SF");
+  expect(handleNameOutliers("T-Wolves")).toEqual("Timberwolves");
+  expect(handleNameOutliers("Buccaneers")).toEqual("Buccaneers");
+  expect(handleNameOutliers("Titans")).toEqual("Titans");
+  expect(handleNameOutliers("Team")).toEqual("Team");
+
+  expect(handleNameOutliers("Bears")).not.toEqual("SF");
+  expect(handleNameOutliers("Timberwolves")).not.toEqual("T-Wolves");
+  expect(handleNameOutliers("Celtics")).not.toEqual("T-Wolves");
+  expect(handleNameOutliers("Sixers")).not.toEqual("T-Wolves");
+  expect(handleNameOutliers("Suns")).not.toEqual("T-Wolves");
+  expect(handleNameOutliers("Spurs")).not.toEqual("T-Wolves");
+  expect(handleNameOutliers("Knicks")).not.toEqual("T-Wolves");
+});
+
+test("Shorten Timberwolves display name to T-Wolves", () => {
+  expect(changeTeamDisplayName("Timberwolves")).toEqual("T-Wolves");
+  expect(changeTeamDisplayName("49ers")).toEqual("49ers");
   expect(changeTeamDisplayName("Cowboys")).toEqual("Cowboys");
   expect(changeTeamDisplayName("Buccaneers")).toEqual("Buccaneers");
   expect(changeTeamDisplayName("Titans")).toEqual("Titans");
   expect(changeTeamDisplayName("Team")).toEqual("Team");
-  expect(changeTeamDisplayName("Bears")).not.toEqual("SF");
 
-  expect(changeTeamDisplayName("Timberwolves")).toEqual("T-Wolves");
+  expect(changeTeamDisplayName("Timberwolves")).not.toEqual("SF");
+  expect(changeTeamDisplayName("SF")).not.toEqual("Timberwolves");
+  expect(changeTeamDisplayName("Bears")).not.toEqual("SF");
   expect(changeTeamDisplayName("Celtics")).not.toEqual("T-Wolves");
   expect(changeTeamDisplayName("Sixers")).not.toEqual("T-Wolves");
   expect(changeTeamDisplayName("Suns")).not.toEqual("T-Wolves");
@@ -16,7 +38,7 @@ test("makeFortyNinersSF", () => {
   expect(changeTeamDisplayName("Knicks")).not.toEqual("T-Wolves");
 });
 
-test("isUnderdogOutrightWinner", () => {
+test("Determin if the underdog is predicted to win the game straight up", () => {
   expect(isUnderdogOutrightWinner("Team", "22", "34", "Team")).toEqual(true);
   expect(isUnderdogOutrightWinner("Jets", "21", "19", "Cowboys")).toEqual(true);
   expect(isUnderdogOutrightWinner("Dolphins", "31", "32", "Dolphins")).toEqual(true);
