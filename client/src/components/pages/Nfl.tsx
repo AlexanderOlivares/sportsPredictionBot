@@ -32,6 +32,7 @@ const Nfl: React.FC = () => {
 
   const {
     isLoading,
+    setIsLoading,
     openPopUpDialog,
     displayedPredictionData,
     filters,
@@ -49,7 +50,9 @@ const Nfl: React.FC = () => {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     fetchGamePredictions(`/api/nfl-week/${week}`);
+    setIsLoading(false);
   }, [week]);
 
   return (
@@ -89,8 +92,11 @@ const Nfl: React.FC = () => {
           </Typography>
         </Box>
       )}
-      <Scoreboard displayedPredictionData={displayedPredictionData} />
-      {isLoading && <Spinner />}
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <Scoreboard displayedPredictionData={displayedPredictionData} />
+      )}
       {!isLoading && displayFetchError && <FourOhFour />}
       {!isLoading && displayedPredictionData && <ScrollToTop />}
       {openPopUpDialog && (

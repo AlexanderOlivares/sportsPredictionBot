@@ -61,13 +61,11 @@ const useFilters = () => {
 
   const fetchGamePredictions = async (url: string) => {
     try {
-      setIsLoading(true);
       const response = await fetch(url, { method: "GET" });
       const predictions: IPredictionData[] = await response.json();
       if (!Array.isArray(predictions) || !predictions?.length) {
         setDisplayedPredictionData(null);
         setDisplayFetchError(true);
-        setIsLoading(false);
         return;
       }
       setDisplayFetchError(false);
@@ -78,7 +76,6 @@ const useFilters = () => {
       } else {
         setDisplayedPredictionData(filterPredictionResults(predictions, filters));
       }
-      setIsLoading(false);
     } catch (error) {
       console.error(error);
     }

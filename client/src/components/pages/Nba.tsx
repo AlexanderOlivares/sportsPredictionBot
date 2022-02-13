@@ -18,6 +18,7 @@ const Nba: React.FC = () => {
 
   const {
     isLoading,
+    setIsLoading,
     openPopUpDialog,
     displayedPredictionData,
     filters,
@@ -30,9 +31,13 @@ const Nba: React.FC = () => {
   } = useFilters();
 
   useEffect(() => {
-    const [month, day, year] = gameDate.split(" ");
-    const date = `${month} ${day}`;
-    fetchGamePredictions(`/api/nba-date/${year}/${date}`);
+    setIsLoading(true);
+    if (gameDate) {
+      const [month, day, year] = gameDate.split(" ");
+      const date = `${month} ${day}`;
+      fetchGamePredictions(`/api/nba-date/${year}/${date}`);
+      setIsLoading(false);
+    }
   }, [gameDate]);
 
   return (
@@ -64,8 +69,11 @@ const Nba: React.FC = () => {
           <Typography variant="h4">NBA</Typography>
         </Box>
       )}
-      <Scoreboard displayedPredictionData={displayedPredictionData} />
-      {isLoading && <Spinner />}
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <Scoreboard displayedPredictionData={displayedPredictionData} />
+      )}
       {!isLoading && displayFetchError && <FourOhFour />}
       {!isLoading && displayedPredictionData && <ScrollToTop />}
       {openPopUpDialog && (
