@@ -8,8 +8,17 @@ interface INbaGameDateProps {
   setGameDate: React.Dispatch<React.SetStateAction<string>>;
 }
 
+const today = new Date();
+const yesterday = new Date(today);
+yesterday.setDate(yesterday.getDate() - 1);
+
+let showGamesForDate = today;
+if (today.getHours() < 11) {
+  showGamesForDate = yesterday;
+}
+
 const GameDatePicker: React.FC<INbaGameDateProps> = ({ setGameDate }) => {
-  const [date, setDate] = React.useState<Date | null>(new Date());
+  const [date, setDate] = React.useState<Date | null>(showGamesForDate);
 
   const formatDate = (date: Date | null): void => {
     if (date) {

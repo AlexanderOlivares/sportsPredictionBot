@@ -66,7 +66,11 @@ const Nba: React.FC = () => {
       }
       {!isLoading && (
         <Box p={3}>
-          <Typography variant="h4">NBA</Typography>
+          <Typography variant="h3">NBA</Typography>
+          <Typography variant="h6">{gameDate}</Typography>
+          <Typography variant="caption">
+            New predictions daily at 11:00am CT
+          </Typography>
         </Box>
       )}
       {isLoading ? (

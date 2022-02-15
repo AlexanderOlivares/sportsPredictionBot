@@ -21,18 +21,18 @@ export const HomeCardData: IContentCardData[] = [
     buttonText: "Learn More",
   },
   {
-    Icon: SportsFootballOutlinedIcon,
-    headline: "NFL Predictions",
-    body: "Bengals or Rams? Checkout PB's Super Bowl prediction",
-    path: "/nfl",
-    buttonText: "View NFL Predctions",
-  },
-  {
     Icon: SportsBasketballOutlinedIcon,
     headline: "NBA Predictions",
-    body: "NBA Bot is now live!",
+    body: "NBA Bot is now live! New predictions added daily at 11:00am CT",
     path: "/nba",
     buttonText: "View NBA Predctions",
+  },
+  {
+    Icon: SportsFootballOutlinedIcon,
+    headline: "NFL Predictions",
+    body: "NFL Bot went 56-33 straight up from week 14 through the end of the post-season",
+    path: "/nfl",
+    buttonText: "View NFL Predctions",
   },
   {
     Icon: SportsBaseballOutlinedIcon,
