@@ -30,7 +30,7 @@ const GameDatePicker: React.FC<INbaGameDateProps> = ({ setGameDate }) => {
   };
 
   useEffect(() => {
-    formatDate(new Date());
+    formatDate(date);
   }, []);
 
   return (

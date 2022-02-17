@@ -30,7 +30,7 @@ export const HomeCardData: IContentCardData[] = [
   {
     Icon: SportsFootballOutlinedIcon,
     headline: "NFL Predictions",
-    body: "NFL Bot went 56-33 straight up from week 14 through the end of the post-season",
+    body: "NFL Bot went 56-33 straight up from week 14 through the end of the postseason",
     path: "/nfl",
     buttonText: "View NFL Predctions",
   },

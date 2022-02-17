@@ -81,13 +81,15 @@ const GameCard: React.FC<CardProps> = ({ game }) => {
   const [pick, spread] = game.pick.split(" ");
 
   useEffect(() => {
-    const isUpset = isUnderdogOutrightWinner(
-      homeTeam,
-      game.home_predicted,
-      game.away_predicted,
-      changeTeamDisplayName(game.favored_team)
-    );
-    setUpset(isUpset);
+    if (Number(game.vegas_line)) {
+      const isUpset = isUnderdogOutrightWinner(
+        homeTeam,
+        game.home_predicted,
+        game.away_predicted,
+        changeTeamDisplayName(game.favored_team)
+      );
+      setUpset(isUpset);
+    }
   }, [game]);
 
   return (
@@ -106,7 +108,6 @@ const GameCard: React.FC<CardProps> = ({ game }) => {
               <Typography variant="body1">Away</Typography>
               <Box className="nfl-logo-container">
                 <Box className="nfl-logo">
-                  {/* <img src={images[game.away_team]} alt={`${game.away_team} logo`} /> */}
                   <img src={images[awayLogo]} alt={`${game.away_team} logo`} />
                 </Box>
               </Box>
@@ -141,7 +142,6 @@ const GameCard: React.FC<CardProps> = ({ game }) => {
               <Typography variant="body1">Home</Typography>
               <Box className="nfl-logo-container">
                 <Box className="nfl-logo">
-                  {/* <img src={images[game.home_team]} alt={`${game.home_team} logo`} /> */}
                   <img src={images[homeLogo]} alt={`${game.home_team} logo`} />
                 </Box>
               </Box>

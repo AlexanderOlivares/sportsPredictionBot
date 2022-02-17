@@ -57,7 +57,7 @@ test("Shorten Timberwolves display name to T-Wolves", () => {
   expect(changeTeamDisplayName("Knicks")).not.toEqual("T-Wolves");
 });
 
-test("Determin if the underdog is predicted to win the game straight up", () => {
+test("Is the underdog predicted to win the game straight up", () => {
   expect(isUnderdogOutrightWinner("Team", "22", "34", "Team")).toEqual(true);
   expect(isUnderdogOutrightWinner("Jets", "21", "19", "Cowboys")).toEqual(true);
   expect(isUnderdogOutrightWinner("Dolphins", "31", "32", "Dolphins")).toEqual(true);
