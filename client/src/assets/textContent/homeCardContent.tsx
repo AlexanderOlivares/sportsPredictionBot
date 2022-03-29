@@ -34,11 +34,4 @@ export const HomeCardData: IContentCardData[] = [
     path: "/nfl",
     buttonText: "View NFL Predctions",
   },
-  {
-    Icon: SportsBaseballOutlinedIcon,
-    headline: "MLB Predictions",
-    body: "MLB bot will debut at the start of the 2022 baseball season",
-    path: "/nba",
-    buttonText: "",
-  },
 ];

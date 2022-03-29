@@ -1,7 +1,6 @@
 import SportsFootballOutlinedIcon from "@mui/icons-material/SportsFootballOutlined";
 import SportsBasketballOutlinedIcon from "@mui/icons-material/SportsBasketballOutlined";
 import { SvgIconProps } from "@mui/material";
-import SportsBaseballOutlinedIcon from "@mui/icons-material/SportsBaseballOutlined";
 
 const sports: {
   sport: string;
@@ -17,11 +16,6 @@ const sports: {
     sport: "NFL",
     icon: SportsFootballOutlinedIcon,
     text: "Picks",
-  },
-  {
-    sport: "MLB",
-    icon: SportsBaseballOutlinedIcon,
-    text: "(Coming Soon)",
   },
 ];
 
