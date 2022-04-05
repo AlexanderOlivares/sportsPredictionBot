@@ -1,20 +1,20 @@
-### Prediction Bot
+## Prediction Bot
 
 View the [live site](https://sports-prediction-bot.herokuapp.com/)
 
-###### About
+#### About
 
 The [Prediction bot](https://github.com/AlexanderOlivares/nfl-prediction-bot) python script scrapes computer-predicted scores from oddShark.com and dRatings.com and averages those scores for each matchup. It then makes a pick by analyzing the Vegas points spread and determining if the favored team will cover the spread
 
-###### Why
+#### Why?
 
 It started as a way to help me win my NFL pick'em fantasy league.
 
-###### How
+#### How does it work?
 
-Cron job runs my [prediction bot](https://github.com/AlexanderOlivares/nfl-prediction-bot) script weekly (for NFL) and daily (NBA) while in season. It then saves predictions to a Postgres database that this react app queries.
+Cron jobs run my [prediction bot](https://github.com/AlexanderOlivares/nfl-prediction-bot) script weekly (for NFL) and daily (NBA) while in season. It then saves predictions to a Postgres database that this react app queries.
 
-###### Technologies Used
+#### Technologies Used
 
 - React / TypeScript
 - Node
