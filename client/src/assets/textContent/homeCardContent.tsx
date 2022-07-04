@@ -2,7 +2,8 @@ import SportsFootballOutlinedIcon from "@mui/icons-material/SportsFootballOutlin
 import SportsBasketballOutlinedIcon from "@mui/icons-material/SportsBasketballOutlined";
 import { SvgIconProps } from "@mui/material";
 import SmartToyOutlinedIcon from "@mui/icons-material/SmartToyOutlined";
-import SportsBaseballOutlinedIcon from "@mui/icons-material/SportsBaseballOutlined";
+import SportsOutlinedIcon from "@mui/icons-material/SportsOutlined";
+// import SportsBaseballOutlinedIcon from "@mui/icons-material/SportsBaseballOutlined";
 
 export interface IContentCardData {
   Icon: (props: SvgIconProps) => JSX.Element;
@@ -16,22 +17,29 @@ export const HomeCardData: IContentCardData[] = [
   {
     Icon: SmartToyOutlinedIcon,
     headline: "Prediction Bot",
-    body: "Prediction Bot is an automated tool that scrapes predicted sports scores from the web and makes picks based on the Vegas betting line",
+    body: "Prediction Bot is an automated tool that scrapes predicted NFL and NBA scores from the web and makes picks based on the Vegas betting line.",
     path: "/about",
     buttonText: "Learn More",
   },
   {
-    Icon: SportsBasketballOutlinedIcon,
-    headline: "NBA Predictions",
-    body: "NBA Bot is now live! New predictions added daily at 11:00am CT",
-    path: "/nba",
-    buttonText: "View NBA Predctions",
+    Icon: SportsOutlinedIcon,
+    headline: "Are you ready for some football?",
+    body: "The NBA season is over and it's officially the off-season for NBA Bot. NFL Bot will be back with weekly predictions starting week 1 of the 2022-2023 NFL Season.",
+    path: "",
+    buttonText: "",
   },
   {
     Icon: SportsFootballOutlinedIcon,
     headline: "NFL Predictions",
-    body: "NFL Bot went 56-33 straight up from week 14 through the end of the postseason",
+    body: "NFL Bot went 56-33 straight up from it's inception in week 14 through Super Bowl LVI.",
     path: "/nfl",
     buttonText: "View NFL Predctions",
+  },
+  {
+    Icon: SportsBasketballOutlinedIcon,
+    headline: "NBA Predictions",
+    body: "NBA Bot will return for the 2022-2023 NBA Season for another scucessful year of predictions.",
+    path: "/nba",
+    buttonText: "View NBA Predctions",
   },
 ];
