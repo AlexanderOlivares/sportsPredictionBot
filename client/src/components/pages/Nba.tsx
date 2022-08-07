@@ -78,7 +78,7 @@ const Nba: React.FC = () => {
       ) : (
         <Scoreboard displayedPredictionData={displayedPredictionData} />
       )}
-      {!isLoading && displayFetchError && <FourOhFour />}
+      {!isLoading && displayFetchError && <FourOhFour dateOrWeek={"date"} />}
       {!isLoading && displayedPredictionData && <ScrollToTop />}
       {openPopUpDialog && (
         <PopUpDialog

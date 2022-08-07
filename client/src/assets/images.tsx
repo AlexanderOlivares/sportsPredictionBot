@@ -26,6 +26,7 @@ import Seahawks from "./logos/nfl/Seahawks.png";
 import Buccaneers from "./logos/nfl/Buccaneers.png";
 import Titans from "./logos/nfl/Titans.png";
 import Team from "./logos/nfl/Team.png";
+import Commanders from "./logos/nfl/Team.png";
 import Jets from "./logos/nfl/Jets.png";
 import Patriots from "./logos/nfl/Patriots.png";
 import Steelers from "./logos/nfl/Steelers.png";
@@ -72,6 +73,7 @@ import Jazz from "./logos/nba/Jazz.png";
 import Wizards from "./logos/nba/Wizards.png";
 
 const images: { [char: string]: string } = {
+  Commanders,
   Falcons,
   Cardinals,
   Ravens,

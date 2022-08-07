@@ -13,6 +13,7 @@ export const changeTeamDisplayName = (team: string): string => {
   return team;
 };
 
+// Also reformats to fetch alternative team logos that are dark mode friendly
 export const handleNameOutliers = (team: string, isDarkMode: boolean): string => {
   if (team === "T-Wolves") return "Timberwolves";
   if (team === "49ers") return "SF";
