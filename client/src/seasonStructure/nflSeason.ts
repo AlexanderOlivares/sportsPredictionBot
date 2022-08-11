@@ -36,7 +36,8 @@ export const getCurrentNflWeek = async () => {
 		{ method: "GET" }
 		);
 		const { week } = await response.json();
-		return String(week.number);
+        console.log(`espn: ${week.number}`)
+		return week.number - 2; // hall of fame game is consider week 1 
 	} catch (error) {
 		console.log(error);
 	}

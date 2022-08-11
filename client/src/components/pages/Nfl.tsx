@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { SelectChangeEvent } from "@mui/material/Select";
-import { weeks, seasons } from "../../seasonStructure/nflSeason";
+import { weeks, seasons, getCurrentNflWeek } from "../../seasonStructure/nflSeason";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import FourOhFour from "../ui/404";
 import ScrollToTop from "../helpers/ScrollToTop";
@@ -23,15 +23,6 @@ export const removeUnderscores = (week: string) =>
     .join(" ");
 
 const Nfl: React.FC = () => {
-  const latestWeek: string = weeks[weeks.length - 1];
-  const latestSeason: string = seasons[seasons.length - 1];
-  const [season, setSeason] = useState<string>(latestSeason);
-  const [week, setWeek] = useState<string>(latestWeek);
-  const [displayWeeks, setDisplayWeeks] = useState<string[]>(weeks);
-  const message = `No predictions match this filter for ${displayTheWordWeek(
-    week
-  )} ${removeUnderscores(week)}`;
-
   const {
     isLoading,
     setIsLoading,
@@ -46,6 +37,23 @@ const Nfl: React.FC = () => {
     fetchGamePredictions,
   } = useFilters();
 
+  //   const [weekIndex, setWeekIndex] = useState<number>(weeks.length - 1);
+
+  //   const getCurrentWeekIndex = async () => {
+  //     setIsLoading(true);
+  //     const index = await getCurrentNflWeek();
+  //     if (!index) return weeks.length - 1;
+  //     setWeekIndex(index);
+  //   };
+
+  const latestSeason: string = seasons[seasons.length - 1];
+  const [season, setSeason] = useState<string>(latestSeason);
+  const [week, setWeek] = useState<string>(weeks[weeks.length - 1]);
+  const [displayWeeks, setDisplayWeeks] = useState<string[]>(weeks);
+  const message = `No predictions match this filter for ${displayTheWordWeek(
+    week
+  )} ${removeUnderscores(week)}`;
+
   const handleSelectChange = (event: SelectChangeEvent) => {
     const { name, value }: { name: string; value: string } = event.target;
     name === "week" ? setWeek(value) : setSeason(value);
@@ -53,14 +61,14 @@ const Nfl: React.FC = () => {
 
   useEffect(() => {
     setIsLoading(true);
-
+    // getCurrentWeekIndex();
+    fetchGamePredictions(`/api/nfl/${season}/${week}`);
     // This project started at week 14 of the 2021-2022 season. Hiding all weeks before then
     season == "2021-2022"
-      ? setDisplayWeeks(weeks.slice(14)) // SET TO 17 ***************
-      : setDisplayWeeks(weeks);
+      ? setDisplayWeeks(weeks.slice(17)) // index 17 corresponds to week 14 of first season
+      : setDisplayWeeks(weeks.slice(0));
 
-    // fetchGamePredictions(`/api/nfl-week/${week}`);
-    fetchGamePredictions(`/api/nfl/${season}/${week}`);
+    setWeek(displayWeeks[0]); // need to make this dynamic for current nfl week
     setIsLoading(false);
   }, [season, week]);
 
