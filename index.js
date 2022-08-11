@@ -16,11 +16,14 @@ if (process.env.NODE_ENV === "production") {
 
 app.use("/api", router);
 
-router.get("/nfl-week/:week", async (req, res) => {
-  const { week } = req.params;
-  const currentWeek = week.length <= 2 ? `week_${week}` : week;
+router.get("/nfl/:season/:week", async (req, res) => {
+  const { season, week } = req.params;
+  const seasonRequested = season.replace("-", "");
+  const weekRequested = week.length <= 2 ? `week_${week}` : week;
   try {
-    const getPredictions = await pool.query(`SELECT * FROM nfl_${currentWeek}`);
+    const getPredictions = await pool.query(
+      `SELECT * FROM nfl_${seasonRequested}_${weekRequested}`
+    );
     res.json(getPredictions.rows);
   } catch (error) {
     console.error(error.message);

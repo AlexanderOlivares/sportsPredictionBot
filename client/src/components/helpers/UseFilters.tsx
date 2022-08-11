@@ -65,7 +65,7 @@ const useFilters = () => {
       const predictions: IPredictionData[] = await response.json();
       if (!Array.isArray(predictions) || !predictions?.length) {
         setDisplayedPredictionData(null);
-        setDisplayFetchError(true);
+        setDisplayFetchError(true); // this is killing the loading spinner and flashing no games found error
         return;
       }
       setDisplayFetchError(false);

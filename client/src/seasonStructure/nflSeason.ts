@@ -1,19 +1,23 @@
-export const years: string[] = ["2021", "2022", "2023"];
+export const seasons: string[] = ["2021-2022", "2022-2023"]; // add "2023" 
 
 export const weeks: string[] = [
-//   "1",
-//   "2",
-//   "3",
-//   "4",
-//   "5",
-//   "6",
-//   "7",
-//   "8",
-//   "9",
-//   "10",
-//   "11",
-//   "12",
-//   "13",
+  "pre_season_week_1",
+  "pre_season_week_2",
+  "pre_season_week_3",
+  "pre_season_week_4",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+  "11",
+  "12",
+  "13",
   "14",
   "15",
   "16",
@@ -32,7 +36,8 @@ export const getCurrentNflWeek = async () => {
 		{ method: "GET" }
 		);
 		const { week } = await response.json();
-		return String(week.number);
+        console.log(`espn: ${week.number}`)
+		return week.number - 2; // hall of fame game is consider week 1 
 	} catch (error) {
 		console.log(error);
 	}
