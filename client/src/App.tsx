@@ -10,7 +10,6 @@ import Footer from "./components/ui/Footer";
 import About from "./components/pages/About";
 import Nfl from "./components/pages/Nfl";
 import Nba from "./components/pages/Nba";
-import Mlb from "./components/pages/Mlb";
 
 function App() {
   const [darkMode, setDarkMode] = useState<PaletteMode>("light");
@@ -37,7 +36,6 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/nfl" element={<Nfl />} />
               <Route path="/about" element={<About />} />
-              <Route path="/mlb" element={<Mlb />} />
               <Route path="/nba" element={<Nba />} />
             </Routes>
             <Footer />

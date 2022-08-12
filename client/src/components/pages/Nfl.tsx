@@ -37,18 +37,17 @@ const Nfl: React.FC = () => {
     fetchGamePredictions,
   } = useFilters();
 
-  //   const [weekIndex, setWeekIndex] = useState<number>(weeks.length - 1);
+  const [weekIndex, setWeekIndex] = useState<number>(0);
 
-  //   const getCurrentWeekIndex = async () => {
-  //     setIsLoading(true);
-  //     const index = await getCurrentNflWeek();
-  //     if (!index) return weeks.length - 1;
-  //     setWeekIndex(index);
-  //   };
+  const getCurrentWeekIndex = async () => {
+    const index = await getCurrentNflWeek();
+    if (!index) return weeks[0];
+    setWeekIndex(index);
+  };
 
   const latestSeason: string = seasons[seasons.length - 1];
   const [season, setSeason] = useState<string>(latestSeason);
-  const [week, setWeek] = useState<string>(weeks[weeks.length - 1]);
+  const [week, setWeek] = useState<string>(weeks[weekIndex]);
   const [displayWeeks, setDisplayWeeks] = useState<string[]>(weeks);
   const message = `No predictions match this filter for ${displayTheWordWeek(
     week
@@ -61,14 +60,16 @@ const Nfl: React.FC = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    // getCurrentWeekIndex();
+    getCurrentWeekIndex();
+
     fetchGamePredictions(`/api/nfl/${season}/${week}`);
     // This project started at week 14 of the 2021-2022 season. Hiding all weeks before then
     season == "2021-2022"
       ? setDisplayWeeks(weeks.slice(17)) // index 17 corresponds to week 14 of first season
-      : setDisplayWeeks(weeks.slice(0));
+      : setDisplayWeeks(weeks.slice(0, weekIndex + 1));
 
-    setWeek(displayWeeks[0]); // need to make this dynamic for current nfl week
+    console.log(displayWeeks);
+    console.log(weekIndex);
     setIsLoading(false);
   }, [season, week]);
 
