@@ -22,18 +22,18 @@ export const HomeCardData: IContentCardData[] = [
     buttonText: "Learn More",
   },
   {
-    Icon: SportsOutlinedIcon,
-    headline: "Are you ready for some football?",
-    body: "The NBA season is over and it's officially the off-season for NBA Bot. NFL Bot will be back with weekly predictions starting week 1 of the 2022-2023 NFL Season.",
-    path: "",
-    buttonText: "",
-  },
-  {
     Icon: SportsFootballOutlinedIcon,
-    headline: "NFL Predictions",
-    body: "NFL Bot went 56-33 straight up from it's inception in week 14 through Super Bowl LVI.",
+    headline: "Are you ready for some football?",
+    body: "NFL Bot is back for another season of picking winners. Fresh weekly picks coming every Thursday.",
     path: "/nfl",
     buttonText: "View NFL Predctions",
+  },
+  {
+    Icon: SportsOutlinedIcon,
+    headline: "This is your season",
+    body: "NFL Bot is here to help you win your pigskin pick'em league! NFL Bot went 56-33 straight up from it's inception in week 14 through Super Bowl LVI.",
+    path: "",
+    buttonText: "",
   },
   {
     Icon: SportsBasketballOutlinedIcon,

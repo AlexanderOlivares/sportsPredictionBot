@@ -8,13 +8,13 @@ const sports: {
   text: string;
 }[] = [
   {
-    sport: "NBA",
-    icon: SportsBasketballOutlinedIcon,
+    sport: "NFL",
+    icon: SportsFootballOutlinedIcon,
     text: "Picks",
   },
   {
-    sport: "NFL",
-    icon: SportsFootballOutlinedIcon,
+    sport: "NBA",
+    icon: SportsBasketballOutlinedIcon,
     text: "Picks",
   },
 ];
