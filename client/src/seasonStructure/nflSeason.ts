@@ -32,7 +32,7 @@ export const weeks: string[] = [
 export const getCurrentNflWeek = async () => {
 	try {
 		const response = await fetch(
-		"http://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard",
+		"https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard",
 		{ method: "GET" }
 		);
 		const { week } = await response.json();
