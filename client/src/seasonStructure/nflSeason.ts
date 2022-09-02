@@ -4,7 +4,6 @@ export const weeks: string[] = [
   "pre_season_week_1",
   "pre_season_week_2",
   "pre_season_week_3",
-  "pre_season_week_4",
   "1",
   "2",
   "3",
@@ -38,7 +37,8 @@ export const getCurrentNflWeek = async () => {
 		const { week } = await response.json();
         console.log(`espn: ${week.number}`)
         if (week.number == undefined) return 0;
-		return week.number - 2; // hall of fame game is consider week 1 
+		return week.number + 1; // temp measure to show week 3 predictions for 2 weeks since there is no pre-season week 4
+		// return week.number + 2; // correct logic for the regular season
 	} catch (error) {
 		console.log(error);
         return 0;
