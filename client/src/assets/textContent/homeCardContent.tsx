@@ -3,7 +3,6 @@ import SportsBasketballOutlinedIcon from "@mui/icons-material/SportsBasketballOu
 import { SvgIconProps } from "@mui/material";
 import SmartToyOutlinedIcon from "@mui/icons-material/SmartToyOutlined";
 import SportsOutlinedIcon from "@mui/icons-material/SportsOutlined";
-// import SportsBaseballOutlinedIcon from "@mui/icons-material/SportsBaseballOutlined";
 
 export interface IContentCardData {
   Icon: (props: SvgIconProps) => JSX.Element;
@@ -16,24 +15,24 @@ export interface IContentCardData {
 export const HomeCardData: IContentCardData[] = [
   {
     Icon: SmartToyOutlinedIcon,
-    headline: "Prediction Bot",
-    body: "Prediction Bot is an automated tool that scrapes predicted NFL and NBA scores from the web and makes picks based on the Vegas betting line.",
-    path: "/about",
-    buttonText: "Learn More",
-  },
-  {
-    Icon: SportsFootballOutlinedIcon,
-    headline: "Are you ready for some football?",
-    body: "NFL Bot is back for another season of picking winners. Fresh weekly picks coming every Thursday.",
+    headline: "NFL Bot Returns",
+    body: "NFL Bot is back for another season of picking winners! NFL Bot went 56-33 straight up from it's inception in week 14 through Super Bowl LVI. New weekly picks drop every Thursday.",
     path: "/nfl",
     buttonText: "View NFL Predctions",
   },
   {
+    Icon: SportsFootballOutlinedIcon,
+    headline: "Can you beat NFL Bot?",
+    body: "Go head-to-head against NFL Bot in our ESPN Pigskin Pick'em group. Join today and see how you stack up.",
+    path: "https://fantasy.espn.com/games/nfl-pigskin-pickem-2022/group?id=a3e6ef0a-ae34-49b7-9064-2ca336bd3fbb&joining=true",
+    buttonText: "Join Pick'em Group",
+  },
+  {
     Icon: SportsOutlinedIcon,
-    headline: "This is your season",
-    body: "NFL Bot is here to help you win your pigskin pick'em league! NFL Bot went 56-33 straight up from it's inception in week 14 through Super Bowl LVI.",
-    path: "",
-    buttonText: "",
+    headline: "Timeout. How does it work?",
+    body: "Prediction Bot is an automated tool that scrapes predicted NFL and NBA scores from the web and makes picks based on the Vegas betting line.",
+    path: "/about",
+    buttonText: "Learn More",
   },
   {
     Icon: SportsBasketballOutlinedIcon,

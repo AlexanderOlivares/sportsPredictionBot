@@ -25,7 +25,7 @@ const ContentCard: React.FC<IContentCardData> = ({
       <Grid container columns={{ xs: 4, sm: 8, md: 12 }} justifyContent="center">
         <Grid item lg={2}>
           <Card variant="outlined" sx={{ m: 1, width: isMobile ? 345 : 550 }}>
-            <CardActionArea>
+            <CardActionArea sx={{ "&:hover": { cursor: "default" } }}>
               <Typography gutterBottom variant="h5" component="div">
                 {headline}
               </Typography>
