@@ -12,6 +12,7 @@ import IconButton from "@mui/material/IconButton";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import Box from "@mui/material/Box";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
+import { Link } from "react-router-dom";
 
 interface DarkModeProps {
   darkMode: PaletteMode;
@@ -33,7 +34,13 @@ const ButtonAppBar: React.FC<DarkModeProps> = ({
         <Toolbar>
           <Drawer />
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Prediction B<SmartToyOutlinedIcon sx={{ verticalAlign: "sub" }} />T
+            <IconButton sx={{ color: "white" }} component={Link} to={"/"}>
+              Prediction B
+              <SmartToyOutlinedIcon
+                sx={{ verticalAlign: "sub", textDecoration: "none" }}
+              />
+              T
+            </IconButton>
           </Typography>
           <Box>
             <IconButton onClick={toggleDarkMode}>
