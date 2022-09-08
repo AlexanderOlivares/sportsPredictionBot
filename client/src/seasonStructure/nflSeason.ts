@@ -37,8 +37,7 @@ export const getCurrentNflWeek = async () => {
 		const { week } = await response.json();
         console.log(`espn: ${week.number}`)
         if (week.number == undefined) return 0;
-		return week.number + 1; // temp measure to show week 3 predictions for 2 weeks since there is no pre-season week 4
-		// return week.number + 2; // correct logic for the regular season
+		return week.number + 2; 
 	} catch (error) {
 		console.log(error);
         return 0;
