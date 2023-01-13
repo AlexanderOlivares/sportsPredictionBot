@@ -15,10 +15,10 @@ export interface IContentCardData {
 export const HomeCardData: IContentCardData[] = [
   {
     Icon: SmartToyOutlinedIcon,
-    headline: "NFL Bot Returns",
-    body: "NFL Bot is back for another season of picking winners! NFL Bot went 56-33 straight up from it's inception in week 14 through Super Bowl LVI. New weekly picks drop every Thursday.",
+    headline: "Playoff Bot is Here!",
+    body: "Look for NFL Bot's playoff picks every Friday afternoon at 5:00pm CST throughout the postseason",
     path: "/nfl",
-    buttonText: "View NFL Predctions",
+    buttonText: "View NFL Predictions",
   },
   {
     Icon: SportsFootballOutlinedIcon,
@@ -28,17 +28,17 @@ export const HomeCardData: IContentCardData[] = [
     buttonText: "Join Pick'em Group",
   },
   {
+    Icon: SportsBasketballOutlinedIcon,
+    headline: "NBA Predictions",
+    body: "NBA Bot is back at it folks! New picks drop daily at 11:00am CST",
+    path: "/nba",
+    buttonText: "View NBA Predictions",
+  },
+  {
     Icon: SportsOutlinedIcon,
     headline: "Timeout. How does it work?",
     body: "Prediction Bot is an automated tool that scrapes predicted NFL and NBA scores from the web and makes picks based on the Vegas betting line.",
     path: "/about",
     buttonText: "Learn More",
-  },
-  {
-    Icon: SportsBasketballOutlinedIcon,
-    headline: "NBA Predictions",
-    body: "NBA Bot will return for the 2022-2023 NBA Season for another scucessful year of predictions.",
-    path: "/nba",
-    buttonText: "View NBA Predctions",
   },
 ];

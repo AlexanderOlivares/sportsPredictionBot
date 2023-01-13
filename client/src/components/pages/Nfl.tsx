@@ -72,7 +72,9 @@ const Nfl: React.FC = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetchGamePredictions(`/api/nfl/${season}/${week}`);
+    if (weekIndex > 0) {
+      fetchGamePredictions(`/api/nfl/${season}/${week}`);
+    }
     // This project started at week 14 of the 2021-2022 season. Hiding all weeks before then
     season == "2021-2022"
       ? setDisplayWeeks(weeks.slice(17)) // index 17 corresponds to week 14 of first season
