@@ -123,14 +123,8 @@ const Nfl: React.FC = () => {
           </Typography>
         </Box>
       )}
-      {isLoading ? (
-        <Spinner />
-      ) : (
-        <Scoreboard displayedPredictionData={displayedPredictionData} />
-      )}
-      {!isLoading && displayFetchError && (
-        <FourOhFour dateOrWeek={removeUnderscores(week)} />
-      )}
+      {isLoading ? <Spinner /> : <Scoreboard displayedPredictionData={displayedPredictionData} />}
+      {!isLoading && displayFetchError && <FourOhFour dateOrWeek={removeUnderscores(week)} />}
       {!isLoading && displayedPredictionData && <ScrollToTop />}
       {openPopUpDialog && (
         <PopUpDialog

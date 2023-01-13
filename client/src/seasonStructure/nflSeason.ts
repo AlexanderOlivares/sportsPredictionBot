@@ -30,14 +30,24 @@ export const weeks: string[] = [
 
 export const getCurrentNflWeek = async () => {
 	try {
-		const response = await fetch(
-		"https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard",
-		{ method: "GET" }
-		);
-		const { week } = await response.json();
-        console.log(`espn: ${week.number}`)
-        if (week.number == undefined) return 0;
-		return week.number + 2; 
+		// const response = await fetch(
+		// "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard",
+		// { method: "GET" }
+		// );
+		// const { week } = await response.json();
+        // console.log(`espn: ${week.number}`)
+        // if (week.number == undefined) return 0;
+		// return week.number + 2; 
+
+        // bad solution need to revist after season
+        const currentDate: any = new Date();
+        const startDate: any = new Date(currentDate.getFullYear(), 0, 1);
+        const days = Math.floor((currentDate - startDate) /
+            (24 * 60 * 60 * 1000));
+            
+        const weekNumberOfYear = Math.ceil(days / 7);
+        const OFFSET = 19; // will give us correct index of weeks array
+        return weekNumberOfYear + OFFSET;
 	} catch (error) {
 		console.log(error);
         return 0;
