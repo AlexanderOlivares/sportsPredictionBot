@@ -16,16 +16,9 @@ export const HomeCardData: IContentCardData[] = [
   {
     Icon: SmartToyOutlinedIcon,
     headline: "Playoff Bot is Here!",
-    body: "Look for NFL Bot's playoff picks every Friday afternoon at 5:00pm CST throughout the postseason",
+    body: "NFL Bot went 5-1 SU and 3-2-1 ATS on Wild Card weekend! Look for NFL Bot's playoff picks every Friday throughout the postseason",
     path: "/nfl",
     buttonText: "View NFL Predictions",
-  },
-  {
-    Icon: SportsFootballOutlinedIcon,
-    headline: "Can you beat NFL Bot?",
-    body: "Go head-to-head against NFL Bot in our ESPN Pigskin Pick'em group. Join today and see how you stack up.",
-    path: "https://fantasy.espn.com/games/nfl-pigskin-pickem-2022/group?id=a3e6ef0a-ae34-49b7-9064-2ca336bd3fbb&joining=true",
-    buttonText: "Join Pick'em Group",
   },
   {
     Icon: SportsBasketballOutlinedIcon,
@@ -33,6 +26,13 @@ export const HomeCardData: IContentCardData[] = [
     body: "NBA Bot is back at it folks! New picks drop daily at 11:00am CST",
     path: "/nba",
     buttonText: "View NBA Predictions",
+  },
+  {
+    Icon: SportsFootballOutlinedIcon,
+    headline: "Can you beat NFL Bot?",
+    body: "Go head-to-head against NFL Bot in our ESPN Pigskin Pick'em group. Join today and see how you stack up.",
+    path: "https://fantasy.espn.com/games/nfl-pigskin-pickem-2022/group?id=a3e6ef0a-ae34-49b7-9064-2ca336bd3fbb&joining=true",
+    buttonText: "Join Pick'em Group",
   },
   {
     Icon: SportsOutlinedIcon,
