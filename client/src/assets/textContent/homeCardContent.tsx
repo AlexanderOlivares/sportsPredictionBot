@@ -16,7 +16,7 @@ export const HomeCardData: IContentCardData[] = [
   {
     Icon: SmartToyOutlinedIcon,
     headline: "Playoff Bot is Here!",
-    body: "NFL Bot went 5-1 SU and 3-2-1 ATS on Wild Card weekend! Look for NFL Bot's playoff picks every Friday throughout the postseason",
+    body: "NFL Bot is 8-2 SU and 5-4-1 ATS in the playoffs! Look for NFL Bot's conference championship picks this Thursday!",
     path: "/nfl",
     buttonText: "View NFL Predictions",
   },
