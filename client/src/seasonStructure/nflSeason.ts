@@ -46,7 +46,7 @@ export const getCurrentNflWeek = async () => {
         //     (24 * 60 * 60 * 1000));
             
         // const weekNumberOfYear = Math.ceil(days / 7);
-        const OFFSET = 20; // will give us correct index of weeks array
+        const OFFSET = 19; // will give us correct index of weeks array
         console.log(week.number + OFFSET)
         return Number(week.number) + OFFSET;
 	} catch (error) {
