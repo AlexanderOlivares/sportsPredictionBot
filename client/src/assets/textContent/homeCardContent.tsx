@@ -15,8 +15,8 @@ export interface IContentCardData {
 export const HomeCardData: IContentCardData[] = [
   {
     Icon: SmartToyOutlinedIcon,
-    headline: "Playoff Bot is Here!",
-    body: "NFL Bot is 8-2 SU and 5-4-1 ATS in the playoffs! Look for NFL Bot's conference championship picks this Thursday!",
+    headline: "The NLF Bot Super Bowl pick is out now!",
+    body: "NFL Bot is 10-2 SU and 7-4-1 ATS in the playoffs! Will it be the Chiefs or Eagles? View NFL predicitions to find out.",
     path: "/nfl",
     buttonText: "View NFL Predictions",
   },
