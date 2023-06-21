@@ -11,7 +11,10 @@ app.use(cors());
 app.use(express.json());
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "client/build")));
+  console.log("NODE_ENV is production");
+  app.use(express.static(path.join(__dirname, "client/build/static/js/main.19e9670b.chunk.js")));
+} else {
+  console.log("NODE_ENV is development");
 }
 
 app.use("/api", router);
@@ -34,10 +37,9 @@ router.get("/nfl/:season/:week", async (req, res) => {
 router.get("/nba-date/:year/:date", async (req, res) => {
   const { year, date } = req.params;
   try {
-    const getPredictions = await pool.query(
-      `SELECT * FROM nba_${year} WHERE game_date = ($1)`,
-      [date]
-    );
+    const getPredictions = await pool.query(`SELECT * FROM nba_${year} WHERE game_date = ($1)`, [
+      date,
+    ]);
     res.json(getPredictions.rows);
   } catch (error) {
     console.error(error.message);
