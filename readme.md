@@ -23,3 +23,4 @@ Cron jobs run my [prediction bot](https://github.com/AlexanderOlivares/nfl-predi
 - MUI
 - Python
 - Selenium
+- Nginx
