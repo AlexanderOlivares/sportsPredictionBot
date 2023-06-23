@@ -26,13 +26,10 @@ jobs:
       - name: Add directory to PATH
         run: echo "/home/alex/.nvm/versions/node/v14.21.3/bin" >> $GITHUB_PATH
 
-      - run: |
-          echo $USER
-          echo $PATH
-          echo "$(whereis pm2)"
-          echo "$(which pm2)"
-          touch .env
-          echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env
+      - name: Install dependecies and build
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
           npm i
           cd client
           npm i
