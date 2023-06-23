@@ -26,8 +26,8 @@ jobs:
       - run: |
           echo $USER
           echo $PATH
-          echo which pm2
-          echo whereis pm2
+          echo "$(whereis pm2)"
+          echo "$(which pm2)"
           npm i
           cd client
           npm i
