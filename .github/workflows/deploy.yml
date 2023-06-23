@@ -15,6 +15,9 @@ jobs:
       matrix:
         node-version: [14.x]
 
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
     steps:
       - uses: actions/checkout@v3
 
@@ -27,8 +30,6 @@ jobs:
         run: echo "/home/alex/.nvm/versions/node/v14.21.3/bin" >> $GITHUB_PATH
 
       - name: Install dependecies and build
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: |
           npm i
           cd client
