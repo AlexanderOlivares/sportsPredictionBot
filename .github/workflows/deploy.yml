@@ -15,9 +15,6 @@ jobs:
       matrix:
         node-version: [14.x]
 
-    env:
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
-
     steps:
       - uses: actions/checkout@v3
 
@@ -42,3 +39,5 @@ jobs:
           pm2 start 2
           pm2 save
           sudo service nginx restart
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
