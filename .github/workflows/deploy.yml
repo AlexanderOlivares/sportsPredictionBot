@@ -23,12 +23,16 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: Add directory to PATH
+        run: echo "/home/alex/.nvm/versions/node/v14.21.3/bin" >> $GITHUB_PATH
+
       - run: |
-          echo "/home/alex/.nvm/versions/node/v14.21.3/bin/pm2" >> $GITHUB_PATH
           echo $USER
           echo $PATH
           echo "$(whereis pm2)"
           echo "$(which pm2)"
+          touch .env
+          echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env
           npm i
           cd client
           npm i
