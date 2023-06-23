@@ -16,28 +16,40 @@ jobs:
         node-version: [14.x]
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
 
       - name: Add directory to PATH
         run: echo "/home/alex/.nvm/versions/node/v14.21.3/bin" >> $GITHUB_PATH
 
-      - name: Install dependecies and build
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Client
         run: |
-          npm i
           cd client
-          npm i
+          npm ci
           npm run build
           cd ..
-          pm2 stop 1
-          pm2 stop 2
-          pm2 start 1
-          pm2 start 2
-          pm2 save
-          sudo service nginx restart
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+      - name: Update .env File
+        run: |
+          rm -f .env
+          echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env
+
+      - name: Stop PM2 Processes
+        run: pm2 stop all
+
+      - name: Start PM2 Processes
+        run: pm2 start all
+
+      - name: Save PM2 Configuration
+        run: pm2 save
+
+      - name: Restart Nginx
+        run: sudo service nginx restart
