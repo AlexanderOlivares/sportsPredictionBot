@@ -23,7 +23,25 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      # - run: |
+      #     echo $USER
+      #     echo $PATH
+      #     echo "$(whereis pm2)"
+      #     echo "$(which pm2)"
+      #     npm i
+      #     cd client
+      #     npm i
+      #     npm run build
+      #     cd ..
+      #     pm2 stop 1
+      #     pm2 stop 2
+      #     pm2 start 1
+      #     pm2 start 2
+      #     pm2 save
+      #     sudo service nginx restart
+
       - run: |
+          bash -leo << 'EOF'
           echo $USER
           echo $PATH
           echo "$(whereis pm2)"
@@ -39,3 +57,4 @@ jobs:
           pm2 start 2
           pm2 save
           sudo service nginx restart
+          EOF
