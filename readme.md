@@ -1,6 +1,6 @@
 ## Prediction Bot
 
-View the [live site](https://sports-prediction-bot.herokuapp.com/)
+View the [live site](https://predictionbot.lol)
 
 #### About
 
