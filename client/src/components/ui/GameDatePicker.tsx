@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
-import TextField from "@mui/material/TextField";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import DatePicker from "@mui/lab/DatePicker";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 
 interface INbaGameDateProps {
   setGameDate: React.Dispatch<React.SetStateAction<string>>;
@@ -35,14 +34,13 @@ const GameDatePicker: React.FC<INbaGameDateProps> = ({ setGameDate }) => {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <DatePicker
+      <DesktopDatePicker
         label="Select Game Date"
         value={date}
         onChange={newValue => {
           setDate(newValue);
           formatDate(newValue);
         }}
-        renderInput={params => <TextField {...params} />}
       />
     </LocalizationProvider>
   );
