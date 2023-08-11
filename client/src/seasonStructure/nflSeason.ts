@@ -1,4 +1,4 @@
-export const seasons: string[] = ["2021-2022", "2022-2023"]; // add "2023"
+export const seasons: string[] = ["2021-2022", "2022-2023", "2023-2024"];
 
 export const weeks: string[] = [
   "pre_season_week_1",
@@ -38,7 +38,7 @@ export const getCurrentNflWeek = async () => {
     console.log(`espn: ${week.number}`);
     if (week.number == undefined) return 0;
 
-    const OFFSET = 23;
+    const OFFSET = -2;
     console.log(`week offset: ${OFFSET}`);
     return Number(week.number) + OFFSET;
   } catch (error) {
