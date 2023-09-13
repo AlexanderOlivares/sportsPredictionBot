@@ -43,10 +43,14 @@ jobs:
           echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env
 
       - name: Stop PM2 Processes
-        run: pm2 stop all
+        run: |
+          pm2 stop 1
+          pm2 stop 2
 
       - name: Start PM2 Processes
-        run: pm2 start all
+        run: |
+          pm2 start 1
+          pm2 start 2
 
       - name: Save PM2 Configuration
         run: pm2 save
