@@ -45,13 +45,13 @@ jobs:
 
       - name: Stop PM2 Processes
         run: |
-          pm2 stop 0
-          pm2 stop 1
+          pm2 stop 7
+          pm2 stop 6
 
       - name: Start PM2 Processes
         run: |
-          pm2 start 0
-          pm2 start 1
+          pm2 start 7
+          pm2 start 6
 
       - name: Save PM2 Configuration
         run: pm2 save
