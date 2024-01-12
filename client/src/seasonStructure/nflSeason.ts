@@ -36,9 +36,9 @@ export const getCurrentNflWeek = async () => {
     );
     const { week } = await response.json();
     console.log(`espn: ${week.number}`);
-    if (week.number == undefined) return 0;
+    if (week.number === undefined) return 0;
 
-    const OFFSET = 2;
+    const OFFSET = 20;
     console.log(`week offset: ${OFFSET}`);
     return Number(week.number) + OFFSET;
   } catch (error) {
